@@ -1,3 +1,21 @@
 body {
     background-color: gold;
+    text-align: center;
+    font-family: Montserrat;
+}
+
+.intro {
+    padding: 0 15%;
+}
+
+img {
+    width: 50%;
+}
+
+h1 {
+    font-size: 3rem;
+}
+p {
+    margin-top: 40px;
+    line-height: 2;
 }
