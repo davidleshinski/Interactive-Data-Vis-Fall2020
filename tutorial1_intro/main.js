@@ -13,7 +13,8 @@ const headers = thead.selectAll(".header")
 .join("th")
 .attr("class","header")
 .text(d => d)
-.style("border", "1px solid #c6c6c6")
+.style("border-top", "1px solid #c6c6c6")
+.style("border-bottom", "1px solid #c6c6c6")
 .style("background", "#e0e0e0")
 .style("padding", "30px 30px");
 
@@ -33,7 +34,8 @@ const td = rows
 .attr("class", d => +d > 3 ? 'high' : null)
 .text(d => d)
 .style("margin", "0px")
-.style("border", "1px solid #c6c6c6")
+.style("border-top", "1px solid #c6c6c6")
+.style("border-bottom", "1px solid #c6c6c6")
 .style("background", "#CFEEFA")
 .style("line-height", "1.5");
 
