@@ -2,7 +2,7 @@ d3.csv("../data/statePopulations.csv").then(data => {
 
 const table = d3.select("#d3-table")
 .style("border-spacing", "0px")
-.style("width", "40%")
+.style("width", "65%")
 // .style("height", "800px")
 .style("padding", "8px")
 .style("background", "#c6c6c6")
