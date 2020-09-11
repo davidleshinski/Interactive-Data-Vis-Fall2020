@@ -1,6 +1,8 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    background:#e0e0e0;
+    font-size: .75rem;
 }
 
 .table-title {
