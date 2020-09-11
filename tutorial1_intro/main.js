@@ -15,7 +15,7 @@ const headers = thead.selectAll(".header")
 .text(d => d)
 .style("border", "1px solid #c6c6c6")
 .style("background", "#e0e0e0")
-.style("padding-right", "30px");
+.style("padding", "30px 30px");
 
 
 const tbody = table.append("tbody");
@@ -34,6 +34,7 @@ const td = rows
 .text(d => d)
 .style("margin", "0px")
 .style("border", "1px solid #c6c6c6")
-.style("background", "#CFEEFA");
+.style("background", "#CFEEFA")
+.style("line-height", "1.5");
 
 })
