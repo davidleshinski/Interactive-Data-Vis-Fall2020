@@ -1,9 +1,9 @@
-d3.csv("../data/surveyResults.csv").then(data => {
+d3.csv("../data/statePopulations.csv").then(data => {
 
 const table = d3.select("#d3-table")
 .style("border-spacing", "0px")
-.style("width", "30%")
-.style("height", "800px")
+.style("width", "40%")
+// .style("height", "800px")
 .style("padding", "8px")
 .style("background", "#c6c6c6")
 .style("margin", "0 auto");
@@ -20,7 +20,7 @@ const headers = thead.selectAll(".header")
 .style("border-left", "1px solid #c6c6c6")
 .style("border-right", "1px solid #c6c6c6")
 .style("background", "#e0e0e0")
-.style("padding", "0 30px");
+.style("padding", "5px 30px");
 
 
 const tbody = table.append("tbody");
@@ -41,6 +41,7 @@ const td = rows
 .style("border-right", "1px solid #c6c6c6")
 .style("border-left", "1px solid #c6c6c6")
 .style("background", "#CFEEFA")
-// .style("line-height", "1.5");
+// .style("line-height", "1.5")
+.style("padding", "10px 0");
 
 })
