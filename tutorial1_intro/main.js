@@ -4,7 +4,7 @@ const table = d3.select("#d3-table")
 .style("border-spacing", "0px")
 .style("width", "65%")
 // .style("height", "800px")
-.style("padding", "8px")
+.style("padding", "18px")
 .style("background", "#c6c6c6")
 .style("margin", "0 auto");
 
