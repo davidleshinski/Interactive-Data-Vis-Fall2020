@@ -1,12 +1,19 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: Source Sans Pro;
 }
 
 div{
     text-align: center;
 }
 
+div h1 {
+   font-weight: 900; 
+}
+
 text {
 font-size: .73rem;
+font-family: Source Sans Pro;
+font-weight: 400;
 }
