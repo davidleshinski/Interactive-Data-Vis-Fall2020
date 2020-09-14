@@ -1,4 +1,4 @@
-d3.csv("../data/statePopulations.csv").then(data => {
+d3.csv("../data/Iris.csv").then(data => {
 
 const table = d3.select("#d3-table")
 .style("border-spacing", "0px")
@@ -40,6 +40,7 @@ const td = rows
 .style("margin", "0px")
 .style("border-right", "1px solid #c6c6c6")
 .style("border-left", "1px solid #c6c6c6")
+.style("border-top", "1px solid #c6c6c6")
 .style("background", "#CFEEFA")
 // .style("line-height", "1.5")
 .style("padding", "10px 0");
