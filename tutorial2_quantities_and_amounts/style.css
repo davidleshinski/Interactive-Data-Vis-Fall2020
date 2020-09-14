@@ -3,6 +3,10 @@ body {
     margin: 0;
 }
 
+div{
+    text-align: center;
+}
+
 text {
 font-size: .73rem;
 }

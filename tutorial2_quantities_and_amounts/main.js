@@ -4,7 +4,7 @@ const svgWidth = 800
 
 const svgHeight = 800
 
-const margin = {top: 30, right: 20, bottom: 30, left: 200}
+const margin = {top: 30, right: 20, bottom: 30, left: 150}
 
 const innerWidth = svgWidth - margin.left - margin.right
 
