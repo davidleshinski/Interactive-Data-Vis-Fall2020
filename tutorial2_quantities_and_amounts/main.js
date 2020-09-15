@@ -1,10 +1,10 @@
 d3.csv("../data/City_populations.csv" , d3.autoType).then(data => {
 
-const svgWidth = 800
+const svgWidth = 600
 
-const svgHeight = 800
+const svgHeight = 600
 
-const margin = {top: 30, right: 20, bottom: 30, left: 150}
+const margin = {top: 30, right: 20, bottom: 30, left: 100}
 
 const innerWidth = svgWidth - margin.left - margin.right
 
