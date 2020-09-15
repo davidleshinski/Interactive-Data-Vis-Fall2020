@@ -1,3 +1,10 @@
+html {
+    background-image: url(images/nyc_image.jpg);
+    background-repeat: no-repeat;
+   background-size: cover;
+height: 100%;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -10,10 +17,28 @@ div{
 
 div h1 {
    font-weight: 900; 
+   color: honeydew;
+}
+
+.source {
+    color: honeydew;
+  padding-left: 1%;
+  padding-top: 4%;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+a {
+    color: darkblue;
 }
 
 text {
-font-size: .65rem;
+font-size: 1.2em;
 font-family: Source Sans Pro;
 font-weight: 400;
+color: honeydew;
+}
+
+rect {
+    opacity: 0.5;
 }
