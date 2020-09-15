@@ -24,12 +24,12 @@ div h1 {
     color: honeydew;
   padding-left: 1%;
   padding-top: 4%;
-    font-size: 1em;
+    font-size: .9em;
     font-weight: 400;
 }
 
 a {
-    color: darkblue;
+    color: steelblue;
 }
 
 text {
