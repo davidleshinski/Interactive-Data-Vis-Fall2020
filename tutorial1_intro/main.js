@@ -35,7 +35,7 @@ const td = rows
 .selectAll("td")
 .data(d => Object.values(d))
 .join("td")
-.attr("class", d => +d > 3 ? 'high' : null)
+.attr("class", d => d > 7 && d < 8 ? 'high' : null)
 .text(d => d)
 .style("margin", "0px")
 .style("border-right", "1px solid #c6c6c6")
