@@ -39,6 +39,7 @@ function init() {
 options = selectElement.selectAll('option')
 .data(["All", "Marvel", "DC"])
 .join('option')
+.attr("value", d => d)
 .text(d => d);
 
 // -------------------- Create Scales -------------------- 
