@@ -1,74 +1,108 @@
-/* CONSTANTS AND GLOBALS */
-const width = window.innerWidth * 0.7,
-  height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 60, right: 40 },
-  radius = 5;
 
-// these variables allow us to access anything we manipulate in init() but need access to in draw().
-// All these variables are empty before we assign something to them.
+// -------------------- Constants -------------------- 
+
+svgHeight = 900
+svgWidth = 1100
+margin = {top: 40, right: 20, bottom: 60, left: 50}
+innerHeight = svgHeight - margin.top - margin.bottom
+innerWidth = svgWidth - margin.left - margin.right
+
 let svg;
 let xScale;
 let yScale;
+let g;
 
 /* APPLICATION STATE */
 let state = {
   data: [],
-  selection: "All" // + YOUR FILTER SELECTION
+  selection: 'Both'
 };
 
 /* LOAD DATA */
-d3.json("../data/environmentRatings.json", d3.autoType).then(raw_data => {
+d3.csv("../data/marvelVsDc.csv", d3.autoType).then(raw_data => {
   // + SET YOUR DATA PATH
   console.log("raw_data", raw_data);
   state.data = raw_data;
   init();
 });
 
-/* INITIALIZING FUNCTION */
-// this will be run *one time* when the data finishes loading in 
 function init() {
-  // + SCALES
 
-  // + AXES
-
-  // + UI ELEMENT SETUP
+  // -------------------- Dropdown options -------------------- 
 
   const selectElement = d3.select("#dropdown").on("change", function() {
-    // `this` === the selectElement
-    // 'this.value' holds the dropdown value a user just selected
+         state.selection = this.value
+         console.log("new value is", this.value);
+          draw();
+     });
 
-    state.selection = this.value
-    console.log("new value is", this.value);
-    draw(); // re-draw the graph based on this new selection
-  });
+options = selectElement.selectAll('option')
+.data(['Both', 'Marvel', 'DC'])
+.join('option')
+.text(d => d);
 
-  // add in dropdown options from the unique values in the data
-  selectElement
-    .selectAll("option")
-    .data(["All", "1", "2", "3"]) // + ADD UNIQUE VALUES
-    .join("option")
-    .attr("value", d => d)
-    .text(d => d);
+// -------------------- Create Scales -------------------- 
 
-  // + CREATE SVG ELEMENT
+  xScale = d3.scaleLinear()
+  .domain([d3.min(state.data.map(d =>d.GrossWorldwide)), d3.max(state.data.map(d =>d.GrossWorldwide))])
+  .range([0, innerWidth]);
 
-  // + CALL AXES
+  yScale = d3.scaleLinear()
+    .domain([d3.min(state.data.map(d => d.Rate)), d3.max(state.data.map(d => d.Rate))])
+    .range([innerHeight, 0]);
 
-  draw(); // calls the draw function
+// -------------------- Create svg -------------------- 
+
+svg = d3.selectAll('#d3-container')
+.append('svg')
+.attr('width', svgWidth)
+.attr('height', svgHeight)
+
+g = svg.append("g")
+.attr('transform', `translate(${margin.left}, ${margin.top})`)
+.attr('class', 'innerBox');
+
+// ---------------------- Create Axis ---------------------
+g.append("g").call(d3.axisLeft(yScale))
+.style('color','#000');
+
+g.append("g").call(d3.axisBottom(xScale))
+.attr('transform', `translate(0, ${innerHeight})`)
+.style('color','#000');
+
 }
 
-/* DRAW FUNCTION */
- // we call this everytime there is an update to the data/state
 function draw() {
-  
-  // + FILTER DATA BASED ON STATE
 
-  // const dot = svg
-  //   .selectAll("circle")
-  //   .data(filteredData, d => d.name)
-  //   .join(
-  //     enter => enter, // + HANDLE ENTER SELECTION
-  //     update => update, // + HANDLE UPDATE SELECTION
-  //     exit => exit // + HANDLE EXIT SELECTION
-  //   );
+  // -------------------- filter function -------------------- 
+
+  let filteredData = state.data
+  if (state.selection === "All") {
+    filteredData = state.data.filter(d => d.Compnay === state.selection)
+  }
+  if (state.selection === "Marvel") {
+    filteredData = state.data.filter(d => d.Company === state.selection)
+  }
+  if (state.selection === "DC") {
+    filteredData = state.data.filter(d => d.Company === state.selection)
+  }
+
+  // -------------------- create circles -------------------- 
+
+dots = g.selectAll('.circles')
+.data(filteredData, d => d.Company)
+.join(
+enter => enter
+.append('circle')
+.attr('class', 'circles')
+.attr("cx", d => xScale(d.GrossWorldwide))
+.attr("cy", d => yScale(d.Rate))
+.style('fill', '#32CD32')
+.transition()
+.attr("r", 8)
+.style('opacity', '0.5')
+.duration(5000),
+update => update,
+exit => exit 
+.transition().duration(2000).ease(d3.easeLinear).style("opacity", 0).remove())
 }
