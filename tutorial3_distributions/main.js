@@ -81,14 +81,14 @@ function draw() {
 
   let filteredData = state.data
 
-  if (state.selection === "All") {
-    filteredData = state.data.filter(d => d.Compnay === state.selection)
+  if (state.selection === "DC") {
+    filteredData = state.data.filter(d => d.Company === state.selection)
   }
  
   if (state.selection === "Marvel") {
     filteredData = state.data.filter(d => d.Company === state.selection)
   }
-  if (state.selection === "DC") {
+ else  {
     filteredData = state.data.filter(d => d.Company === state.selection)
   }
  
