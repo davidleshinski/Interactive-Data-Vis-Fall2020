@@ -1,8 +1,8 @@
 
 // -------------------- Constants -------------------- 
 
-svgHeight = 900
-svgWidth = 1100
+svgHeight = 800
+svgWidth = 900
 margin = {top: 40, right: 20, bottom: 60, left: 50}
 innerHeight = svgHeight - margin.top - margin.bottom
 innerWidth = svgWidth - margin.left - margin.right
@@ -15,7 +15,7 @@ let g;
 /* APPLICATION STATE */
 let state = {
   data: [],
-  selection: 'Both'
+  selection: "All"
 };
 
 /* LOAD DATA */
@@ -37,7 +37,7 @@ function init() {
      });
 
 options = selectElement.selectAll('option')
-.data(['Both', 'Marvel', 'DC'])
+.data(["All", "Marvel", "DC"])
 .join('option')
 .text(d => d);
 
@@ -64,11 +64,13 @@ g = svg.append("g")
 
 // ---------------------- Create Axis ---------------------
 g.append("g").call(d3.axisLeft(yScale))
-.style('color','#000');
+.style('color','#fff')
+.attr('class', 'yAxis');
 
 g.append("g").call(d3.axisBottom(xScale))
 .attr('transform', `translate(0, ${innerHeight})`)
-.style('color','#000');
+.attr('class', 'xAxis')
+.style('color','#fff');
 
 }
 
@@ -77,15 +79,18 @@ function draw() {
   // -------------------- filter function -------------------- 
 
   let filteredData = state.data
+
   if (state.selection === "All") {
     filteredData = state.data.filter(d => d.Compnay === state.selection)
   }
+ 
   if (state.selection === "Marvel") {
     filteredData = state.data.filter(d => d.Company === state.selection)
   }
   if (state.selection === "DC") {
     filteredData = state.data.filter(d => d.Company === state.selection)
   }
+ 
 
   // -------------------- create circles -------------------- 
 
@@ -97,12 +102,12 @@ enter => enter
 .attr('class', 'circles')
 .attr("cx", d => xScale(d.GrossWorldwide))
 .attr("cy", d => yScale(d.Rate))
-.style('fill', '#32CD32')
+.style('fill', '#50E0FF')
 .transition()
 .attr("r", 8)
-.style('opacity', '0.5')
-.duration(5000),
+.style('opacity', '0.7')
+.duration(3000),
 update => update,
 exit => exit 
-.transition().duration(2000).ease(d3.easeLinear).style("opacity", 0).remove())
+.transition().duration(1000).ease(d3.easeLinear).style("opacity", 0).remove())
 }

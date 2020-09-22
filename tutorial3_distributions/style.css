@@ -1,7 +1,14 @@
 html {
-background-image: none;
+background-image: url(marvelVsDC.jpg);
+background-repeat: no-repeat;
+background-size: cover;
 }
 
-g text {
+.xAxis text {
     transform: rotate(-5deg);
+    font-size: 9px;
+}
+
+label {
+    color: #fff;
 }
