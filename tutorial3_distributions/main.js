@@ -32,6 +32,7 @@ function init() {
 
   const selectElement = d3.select("#dropdown").on("change", function() {
          state.selection = this.value
+         console.log(this.value)
          console.log("new value is", this.value);
           draw();
      });
@@ -81,34 +82,30 @@ function draw() {
 
   let filteredData = state.data
 
-  if (state.selection === "DC") {
+  if (state.selection !== "All") {
     filteredData = state.data.filter(d => d.Company === state.selection)
   }
  
-  if (state.selection === "Marvel") {
-    filteredData = state.data.filter(d => d.Company === state.selection)
-  }
- else  {
-    filteredData = state.data.filter(d => d.Company === state.selection)
-  }
- 
-
   // -------------------- create circles -------------------- 
 
 dots = g.selectAll('.circles')
-.data(filteredData, d => d.Company)
+.data(filteredData, d => d.OriginalTitle)
 .join(
 enter => enter
 .append('circle')
+.attr("r", 0)
+.style('opacity', '0')
 .attr('class', 'circles')
 .attr("cx", d => xScale(d.GrossWorldwide))
 .attr("cy", d => yScale(d.Rate))
-.style('fill', '#50E0FF')
+.style('fill', d => d.Company === 'Marvel' ? 'Red' : 'Blue')
 .transition()
 .attr("r", 10)
 .style('opacity', '0.7')
 .duration(3000),
 update => update,
 exit => exit 
-.transition().duration(1000).ease(d3.easeLinear).style("opacity", 0).remove())
+.transition().duration(1000)
+.style("opacity", 0)
+.remove())
 }
