@@ -1,8 +1,8 @@
 
 // -------------------- Constants -------------------- 
 
-svgHeight = 800
-svgWidth = 900
+svgHeight = 700
+svgWidth = 1000
 margin = {top: 40, right: 20, bottom: 60, left: 50}
 innerHeight = svgHeight - margin.top - margin.bottom
 innerWidth = svgWidth - margin.left - margin.right
@@ -65,13 +65,13 @@ g = svg.append("g")
 
 // ---------------------- Create Axis ---------------------
 g.append("g").call(d3.axisLeft(yScale))
-.style('color','#fff')
+.style('color','#000')
 .attr('class', 'yAxis');
 
 g.append("g").call(d3.axisBottom(xScale))
 .attr('transform', `translate(0, ${innerHeight})`)
 .attr('class', 'xAxis')
-.style('color','#fff');
+.style('color','#000');
 
 }
 
@@ -105,7 +105,7 @@ enter => enter
 .attr("cy", d => yScale(d.Rate))
 .style('fill', '#50E0FF')
 .transition()
-.attr("r", 8)
+.attr("r", 10)
 .style('opacity', '0.7')
 .duration(3000),
 update => update,
