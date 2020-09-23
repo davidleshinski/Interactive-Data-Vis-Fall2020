@@ -3,7 +3,7 @@
 
 svgHeight = 600
 svgWidth = 900
-margin = {top: 40, right: 60, bottom: 60, left: 40}
+margin = {top: 40, right: 60, bottom: 60, left: 60}
 innerHeight = svgHeight - margin.top - margin.bottom
 innerWidth = svgWidth - margin.left - margin.right
 
