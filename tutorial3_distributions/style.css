@@ -1,15 +1,43 @@
 
-/* 
 body{
-    background-image: url(marvelVsDC.jpg);
-background-size: cover;
-width: 100%;
-height: 100%;
     padding: 0;
     margin: 0;
-} */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+section {
+    background-image: url(marvelVsDC.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 1000px;
+    
+        background-repeat: no-repeat;
+        text-align: right;
+}
+
+.yAxis text {
+    color: #fff;
+}
 
 .xAxis text {
     transform: rotate(-5deg);
     font-size: 9px;
+    
+}
+
+.dropdown-div {
+padding: 7% 5% 0 0;
+}
+
+label {
+    color: #fff;
+
+}
+
+.description {
+    text-align: center;
+
+}
+.description p {
+color: #152238;
 }
