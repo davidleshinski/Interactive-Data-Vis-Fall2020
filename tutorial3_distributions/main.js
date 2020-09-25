@@ -103,9 +103,15 @@ enter => enter
 .attr("r", 10)
 .style('opacity', '0.7')
 .duration(3000),
-update => update,
+update => update
+.transition()
+.attr("r", 5)
+.duration(1500)
+.transition()
+.attr("r", 10)
+.duration(1500),
 exit => exit 
 .transition().duration(1000)
 .style("opacity", 0)
-.remove())
-}
+.remove()
+)}
