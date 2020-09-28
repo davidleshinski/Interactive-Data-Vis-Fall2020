@@ -76,6 +76,33 @@ g.append("g").call(d3.axisBottom(xScale))
 
 }
 
+// ---------------------- Tooltip -------------------
+
+const tooltip = d3.select("#d3-container")
+  .append("div")
+  .style("opacity", 0)
+  .style('text-align', 'left')
+  .attr("class", "tooltip")
+
+
+const mouseover = function(d) {
+  tooltip
+    .style("opacity", 1)
+    .style('border', '1px solid #000')
+    .style('background', '#fff')
+    .style('padding', '6px')
+    .html( "<span style='color: #000;'> Title: " + d.OriginalTitle + " <br>Rating: " + d.Rate + " <br>Gross Worldwide: " + d.GrossWorldwide + '</span>')
+    .style("right", (d3.mouse(this)[0] + 1) + "px")
+    .style("top", (d3.mouse(this)[1]) + "px")
+}
+
+const mouseleave = function(d) {
+  tooltip
+    .transition()
+    .style("opacity", 0)
+    .duration(100)
+}
+
 function draw() {
 
   // -------------------- filter function -------------------- 
@@ -99,9 +126,12 @@ enter => enter
 .attr("cx", d => xScale(d.GrossWorldwide))
 .attr("cy", d => yScale(d.Rate))
 .style('fill', d => d.Company === 'Marvel' ? 'Red' : 'Blue')
+.on("mouseover", mouseover)
+.on("mouseleave", mouseleave)
 .transition()
 .attr("r", 10)
 .style('opacity', '0.7')
+.style('stroke', '#fff')
 .duration(3000),
 update => update
 .transition()
