@@ -51,3 +51,12 @@ color: #152238;
   .circles {
     cursor: pointer;
   }
+
+  .source-box {
+    text-align: left;
+    padding: 1%;
+  }
+
+  .source {
+      color: #fff;
+  }
