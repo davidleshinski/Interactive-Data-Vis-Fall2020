@@ -47,3 +47,7 @@ color: #152238;
     font-size: 14px;
     pointer-events: none;
   }
+
+  .circles {
+    cursor: pointer;
+  }

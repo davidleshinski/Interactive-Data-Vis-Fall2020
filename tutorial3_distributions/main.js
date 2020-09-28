@@ -73,7 +73,6 @@ g.append("g").call(d3.axisBottom(xScale))
 .attr('transform', `translate(0, ${innerHeight})`)
 .attr('class', 'xAxis')
 .style('color','#fff');
-
 }
 
 // ---------------------- Tooltip -------------------
@@ -87,7 +86,7 @@ const tooltip = d3.select("#d3-container")
 
 const mouseover = function(d) {
   tooltip
-    .style("opacity", 1)
+    .style("opacity", 0.6)
     .style('border', '1px solid #000')
     .style('background', '#fff')
     .style('padding', '6px')
@@ -121,7 +120,7 @@ dots = g.selectAll('.circles')
 enter => enter
 .append('circle')
 .attr("r", 0)
-.style('opacity', '0')
+.style('opacity', 0)
 .attr('class', 'circles')
 .attr("cx", d => xScale(d.GrossWorldwide))
 .attr("cy", d => yScale(d.Rate))
