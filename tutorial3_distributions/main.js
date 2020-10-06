@@ -148,5 +148,8 @@ exit => exit
 .call( exit => exit 
 .transition().duration(1000)
 .style("opacity", 0)
-.remove())
-)}
+.remove()
+)
+)
+console.log(dots)
+}

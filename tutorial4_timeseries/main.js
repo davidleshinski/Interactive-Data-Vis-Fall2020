@@ -117,12 +117,10 @@ function draw() {
       .call( update => update
       .transition()
       .attr("r", 5)
-      .duration(1500))
-      .call( update => update
+      .duration(1500)
       .transition()
       .attr("r", radius)
-      .duration(1500)
-      ),
+      .duration(1500)),
       exit => exit 
       .call(exit => exit
       .transition()
