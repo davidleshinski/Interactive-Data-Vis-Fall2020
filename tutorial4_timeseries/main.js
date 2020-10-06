@@ -6,8 +6,6 @@ const width = 900,
   innerHeight = height - margin.top - margin.bottom,
 innerWidth = width - margin.left - margin.right;
 
-// these variables allow us to access anything we manipulate in init() but need access to in draw().
-// All these variables are empty before we assign something to them.
 let svg;
 let xScale;
 let yScale;
@@ -20,7 +18,6 @@ let state = {
 };
 
 /* LOAD DATA */
-// + SET YOUR DATA PATH
 d3.csv("../data/nba_player_stats.csv", d3.autoType).then(raw_data => {
   console.log("raw_data", raw_data);
   state.data = raw_data;
@@ -28,7 +25,6 @@ d3.csv("../data/nba_player_stats.csv", d3.autoType).then(raw_data => {
 });
 
 /* INITIALIZING FUNCTION */
-// this will be run *one time* when the data finishes loading in
 function init() {
 
   // --------------------------- scales -----------------------
@@ -78,7 +74,7 @@ function init() {
     .style('color', '#000')
     .attr('class', 'axis axis-bottom');
 
-  draw(); // calls the draw function
+  draw();
 }
 
 function draw() {
@@ -92,7 +88,7 @@ function draw() {
   }
  
   // ----------------------- dots ------------------------
-   dot = g.selectAll("dot")
+   dots = g.selectAll("dot")
     .data(filteredData)
     .join(enter => enter
       .append('circle')
@@ -129,5 +125,5 @@ function draw() {
       .remove()
       )
       )
-      console.log(dot)
+      console.log(dots)
     }
