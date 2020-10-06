@@ -1,11 +1,11 @@
 
 // -------------------- Constants -------------------- 
-
-svgHeight = 600
-svgWidth = 900
-margin = {top: 40, right: 60, bottom: 60, left: 60}
-innerHeight = svgHeight - margin.top - margin.bottom
-innerWidth = svgWidth - margin.left - margin.right
+const 
+svgHeight = 600,
+svgWidth = 900,
+margin = {top: 40, right: 60, bottom: 60, left: 60},
+innerHeight = svgHeight - margin.top - margin.bottom,
+innerWidth = svgWidth - margin.left - margin.right;
 
 let svg;
 let xScale;
@@ -46,7 +46,7 @@ options = selectElement.selectAll('option')
 // -------------------- Create Scales -------------------- 
 
   xScale = d3.scaleLinear()
-  .domain([d3.min(state.data.map(d =>d.GrossWorldwide)), d3.max(state.data.map(d =>d.GrossWorldwide))])
+  .domain([d3.min(state.data.map(d =>d.GrossWorldwide)), d3.max(state.data.map(d => d.GrossWorldwide))])
   .range([0, innerWidth]);
 
   yScale = d3.scaleLinear()
@@ -58,7 +58,7 @@ options = selectElement.selectAll('option')
 svg = d3.selectAll('#d3-container')
 .append('svg')
 .attr('width', svgWidth)
-.attr('height', svgHeight)
+.attr('height', svgHeight);
 
 g = svg.append("g")
 .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -129,20 +129,23 @@ enter => enter
 .style('fill', d => d.Company === 'Marvel' ? 'Red' : 'Blue')
 .on("mouseover", mouseover)
 .on("mouseleave", mouseleave)
+.call( enter => enter
 .transition()
 .attr("r", 10)
 .style('opacity', '0.7')
 .style('stroke', '#fff')
-.duration(3000),
+.duration(3000)),
 update => update
+.call( update => update
 .transition()
 .attr("r", 5)
 .duration(1500)
 .transition()
 .attr("r", 10)
-.duration(1500),
+.duration(1500)),
 exit => exit 
+.call( exit => exit 
 .transition().duration(1000)
 .style("opacity", 0)
-.remove()
+.remove())
 )}
