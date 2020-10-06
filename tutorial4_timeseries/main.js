@@ -123,8 +123,9 @@ function draw() {
       .attr("r", 10)
       .duration(1500)),
       exit => exit 
-      // .transition()
-      // .duration(1000)
-      // .style("opacity", 0)
+      .transition()
+      .duration(1000)
+      .style("opacity", 0)
       .remove()
-      )}
+      )
+      console.log(dot)}
