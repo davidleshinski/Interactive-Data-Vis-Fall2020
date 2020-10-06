@@ -134,7 +134,8 @@ enter => enter
 .attr("r", 10)
 .style('opacity', '0.7')
 .style('stroke', '#fff')
-.duration(3000)),
+.duration(3000)
+),
 update => update
 .call( update => update
 .transition()
