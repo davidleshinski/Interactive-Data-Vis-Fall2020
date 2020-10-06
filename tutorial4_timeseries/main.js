@@ -34,7 +34,7 @@ function init() {
   // --------------------------- scales -----------------------
 
   xScale = d3.scaleLinear() 
-   .domain(d3.extent(state.data.map(d => d.Season)))
+   .domain(d3.extent(state.data.map(d => d.Year)))
   .range([0, innerWidth])
 
   yScale = d3.scaleLinear()
@@ -99,7 +99,7 @@ function draw() {
       .attr("r", 0)
       .style('opacity', 0)
       .attr('class', "dot")
-      .attr("cx", d => xScale(d.Season))
+      .attr("cx", d => xScale(d.Year))
       .attr("cy", d => yScale(d.Points))
       .style('fill', d => {
         if (d.Player === "Kobe Bryant") return "yellow";
@@ -120,12 +120,16 @@ function draw() {
       .duration(1500))
       .call( update => update
       .transition()
-      .attr("r", 10)
-      .duration(1500)),
+      .attr("r", radius)
+      .duration(1500)
+      ),
       exit => exit 
+      .call(exit => exit
       .transition()
       .duration(1000)
       .style("opacity", 0)
       .remove()
       )
-      console.log(dot)}
+      )
+      console.log(dot)
+    }
