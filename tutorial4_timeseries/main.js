@@ -107,7 +107,7 @@ function draw() {
       .transition()
       .attr("r", radius)
       .style('opacity', '0.7')
-      .duration(3000)
+      .duration(1000)
       ),
       update => update
       .call( update => update
