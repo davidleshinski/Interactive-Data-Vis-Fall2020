@@ -34,7 +34,7 @@ function init() {
   // --------------------------- scales -----------------------
 
   xScale = d3.scaleLinear() 
-   .domain([d3.min(state.data.map(d => d.Season)), d3.max(state.data.map(d => d.Season))])
+   .domain(d3.extent(state.data.map(d => d.Season)))
   .range([0, innerWidth])
 
   yScale = d3.scaleLinear()
@@ -104,7 +104,7 @@ function draw() {
       .style('fill', d => {
         if (d.Player === "Kobe Bryant") return "yellow";
         else if (d.Player === "LeBron James") return "purple";
-       else if (d.Player === "Kevin Durant") return "gold";
+       else if (d.Player === "Kevin Durant") return "blue";
        else return "red";
       })
       .call( enter => enter
@@ -123,8 +123,8 @@ function draw() {
       .attr("r", 10)
       .duration(1500)),
       exit => exit 
-      .transition()
-      .duration(1000)
-      .style("opacity", 0)
+      // .transition()
+      // .duration(1000)
+      // .style("opacity", 0)
       .remove()
       )}
