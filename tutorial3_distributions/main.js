@@ -50,7 +50,7 @@ options = selectElement.selectAll('option')
   .range([0, innerWidth]);
 
   yScale = d3.scaleLinear()
-    .domain([d3.min(state.data.map(d => d.Rate)), d3.max(state.data.map(d => d.Rate))])
+    .domain([0, 10])
     .range([innerHeight, 0]);
 
 // -------------------- Create svg -------------------- 

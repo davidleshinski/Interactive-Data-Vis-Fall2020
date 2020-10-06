@@ -40,8 +40,7 @@ function init() {
 // ----------------------- selction dropdown ------------------------
 
   const selectElement = d3.select("#dropdown").on("change", function() {
-    // 'this.value' holds the dropdown value a user just selected
-    state.selection = this.value; // + UPDATE STATE WITH YOUR SELECTED VALUE
+    state.selection = this.value;
     console.log("new value is", this.value);
     draw();
   });
