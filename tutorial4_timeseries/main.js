@@ -51,7 +51,7 @@ function init() {
   });
 
   options = selectElement.selectAll("option")
-    .data(["All", "Kobe Bryant", "Lebron James", "Kevin Durant", "James Harden"])
+    .data(["All", "Kobe Bryant", "LeBron James", "Kevin Durant", "James Harden"])
     .join("option")
     .attr("value", d => d)
     .text(d => d);
