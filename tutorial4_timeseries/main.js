@@ -18,7 +18,7 @@ let state = {
 
 /* LOAD DATA */
 // + SET YOUR DATA PATH
-d3.json(YOUR_DATA_PATH, d3.autoType).then(raw_data => {
+d3.csv(data/nba_player_stats.csv, d3.autoType).then(raw_data => {
   console.log("raw_data", raw_data);
   state.data = raw_data;
   init();
@@ -44,7 +44,7 @@ function init() {
   // add in dropdown options from the unique values in the data
   selectElement
     .selectAll("option")
-    .data(["All", "1", "2", "3"]) // + ADD DATA VALUES FOR DROPDOWN
+    .data(["All", "Kobe Bryant", "Lebron James", "Kevin Durant", "James Harden"]) // + ADD DATA VALUES FOR DROPDOWN
     .join("option")
     .attr("value", d => d)
     .text(d => d);

@@ -73,6 +73,8 @@ g.append("g").call(d3.axisBottom(xScale))
 .attr('transform', `translate(0, ${innerHeight})`)
 .attr('class', 'xAxis')
 .style('color','#fff');
+
+draw();
 }
 
 // ---------------------- Tooltip -------------------
