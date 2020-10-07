@@ -1,12 +1,12 @@
 // ----------------------- constants ------------------------
-const width = 700,
-  height = 600,
+const width = 800,
+  height = 700,
   margin = { top: 20, bottom: 40, left: 60, right: 40 },
-  radius = 4,
-  transistionRadius = 2,
+  radius = 5,
+  transistionRadius = 3,
   innerHeight = height - margin.top - margin.bottom,
 innerWidth = width - margin.left - margin.right,
-default_selection = "Select a player"
+default_selection = "Select a Player"
 
 let svg;
 let xScale;
@@ -71,13 +71,13 @@ function init() {
     // ----------------------- axis ------------------------
 
     g.append("g").call(d3.axisLeft(yScale))
-    .style('color', '#000')
+    .style('color', '#fff')
     .attr('class', 'axis axis-left')
 
 
     g.append("g").call(d3.axisBottom(xScale))
     .attr('transform', `translate(0, ${innerHeight})`)
-    .style('color', '#000')
+    .style('color', '#fff')
     .attr('class', 'axis axis-bottom');
 
   draw();
@@ -103,7 +103,7 @@ const lineFunc = d3.line()
   // ----------------------- dots ------------------------
    const dots = g.selectAll("dot")
       .data(filteredData)
-      .join(enter => enter
+      .join( enter => enter
       .append('circle')
       .attr('class', "dot")
       .attr("r", 0)
@@ -119,58 +119,53 @@ const lineFunc = d3.line()
       .call( enter => enter
       .transition()
       .attr("r", radius)
-      .style('opacity', '0.7')
+      .style('opacity', '1')
       .duration(1000)
       ),
       update => update
       .call( update => update
       .transition()
-      .attr("r", transistionRadius)
+      .attr("r", '2')
       .duration(1500)
       .attr("r", radius)
       .duration(1500)),
       exit => exit 
       .call( exit => exit 
       .transition()
-      .style('opacity', 0)
+      .style('opacity', '0')
       .duration(1000)
       .remove())
     )
 
     // --------------------------- line -------------------------
 
-    const line = g
-    .selectAll("path.trend")
-    .data([filteredData])
-    .join(
-      enter => enter
-          .append("path")
-          .attr("class", "trend")
-          .attr("d", d => lineFunc(d))
-          // .attr("opacity", 0)
-          .style('stroke', '#000')
-            .call( enter => enter
-              .transition()
-              
-              .duration(2000)
-              ),
-              update => update
-              .attr("d", d => lineFunc(d))
-              .call( update => update
-              .transition()
-              .attr("r", transistionRadius)
-              .duration(1500)
-              .attr("r", radius)
-              .duration(1500)),
-              exit => exit 
-              .call( exit => exit 
-              .transition()
-              .style('opacity', 0)
-              .duration(1000)
-              .remove())
-            )
+    const line = g.selectAll("path.trend")
+      .data([filteredData])
+      .join( enter => enter
+      .append("path")
+      .attr("class", "trend")
+      .attr("d", d => lineFunc(d))
+      .attr("opacity", '0')
+      .call( enter => enter
+      .transition()
+      .style('stroke', '#fff')
+      .attr('opacity', '1')
+      .duration(1000)
+      ),
+      update => update
+      .attr("d", d => lineFunc(d))
+      .call( update => update
+      .transition()
+      .duration(1500)),
+      exit => exit 
+      .call( exit => exit 
+      .transition()
+      .attr('opacity', '0')
+      .duration(1000)
+      .remove())
+      )
+      console.log(filteredData)
 console.log(line)
-console.log(filteredData)
+
 console.log(dots)
-        
 }

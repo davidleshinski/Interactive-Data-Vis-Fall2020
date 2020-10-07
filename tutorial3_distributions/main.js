@@ -121,8 +121,8 @@ dots = g.selectAll('.circles')
 .join(
 enter => enter
 .append('circle')
-.attr("r", 0)
-.style('opacity', 0)
+.attr("r", '0')
+.style('opacity', '0')
 .attr('class', 'circles')
 .attr("cx", d => xScale(d.GrossWorldwide))
 .attr("cy", d => yScale(d.Rate))
@@ -131,7 +131,7 @@ enter => enter
 .on("mouseleave", mouseleave)
 .call( enter => enter
 .transition()
-.attr("r", 10)
+.attr("r", '10')
 .style('opacity', '0.7')
 .style('stroke', '#fff')
 .duration(3000)
@@ -139,15 +139,15 @@ enter => enter
 update => update
 .call( update => update
 .transition()
-.attr("r", 5)
+.attr("r", '5')
 .duration(1500)
 .transition()
-.attr("r", 10)
+.attr("r", '10')
 .duration(1500)),
 exit => exit 
 .call( exit => exit 
 .transition().duration(1000)
-.style("opacity", 0)
+.style("opacity", '0')
 .remove()
 )
 )
