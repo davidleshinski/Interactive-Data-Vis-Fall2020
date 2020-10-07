@@ -48,12 +48,12 @@ function init() {
   });
 
  const options = selectElement.selectAll("option")
-    .data([
-      ...Array.from(new Set(state.data.map(d => d.Player))),default_selection])
+    .data([default_selection,
+      ...Array.from(new Set(state.data.map(d => d.Player)))])
       .join("option")
     .attr("value", d => d)
     .text(d => d)
-    .sort(d3.ascending);
+    // .sort(d3.ascending); not sure how to use this and keep the default at the top
 
     selectElement.property("value", default_selection);
 
