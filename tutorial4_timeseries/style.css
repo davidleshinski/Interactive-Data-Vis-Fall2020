@@ -54,3 +54,9 @@ select {
     margin-top: 5%;
     margin-left: 5%;
 }
+
+.axis-label {
+        font-size: 14px;
+        fill:#fff;
+        text-anchor: middle;
+}

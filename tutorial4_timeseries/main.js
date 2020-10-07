@@ -1,7 +1,7 @@
 // ----------------------- constants ------------------------
 const width = 800,
   height = 700,
-  margin = { top: 20, bottom: 40, left: 60, right: 40 },
+  margin = { top: 20, bottom: 60, left: 60, right: 40 },
   radius = 4,
   transistionRadius = 3,
   innerHeight = height - margin.top - margin.bottom,
@@ -73,15 +73,24 @@ function init() {
     g.append("g").call(d3.axisLeft(yScale))
     .style('color', '#fff')
     .attr('class', 'axis axis-left')
-    // .text('Points')
+    .append("text")
+    .attr("class", "axis-label")
+    .attr("y", "50%")
+    .attr("dx", "-3em")
+    .attr("writing-mode", "vertical-rl")
+    .text("Points");
 
 
     g.append("g").call(d3.axisBottom(xScale))
     .attr('transform', `translate(0, ${innerHeight})`)
     .style('color', '#fff')
     .attr('class', 'axis axis-bottom')
-  // .text("Year");
-
+    .append("text")
+    .attr("class", "axis-label")
+    .attr("x", "50%")
+    .attr("dy", "3em")
+    .text("Year")
+    .style('color', '#fff');
 
   draw();
 }
