@@ -52,7 +52,8 @@ function init() {
       ...Array.from(new Set(state.data.map(d => d.Player))),default_selection])
       .join("option")
     .attr("value", d => d)
-    .text(d => d);
+    .text(d => d)
+    .sort(d3.ascending);
 
     selectElement.property("value", default_selection);
 
