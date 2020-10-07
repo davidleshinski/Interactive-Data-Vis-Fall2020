@@ -4,7 +4,8 @@ const width = 900,
   margin = { top: 20, bottom: 40, left: 60, right: 40 },
   radius = 8,
   innerHeight = height - margin.top - margin.bottom,
-innerWidth = width - margin.left - margin.right;
+innerWidth = width - margin.left - margin.right,
+default_selection = "All"
 
 let svg;
 let xScale;
@@ -14,7 +15,7 @@ let g;
 /* APPLICATION STATE */
 let state = {
   data: [],
-  selection: "All"
+  selection: null
 };
 
 /* LOAD DATA */
@@ -46,10 +47,13 @@ function init() {
   });
 
   options = selectElement.selectAll("option")
-    .data(["All", "Kobe Bryant", "LeBron James", "Kevin Durant", "James Harden"])
-    .join("option")
+    .data([
+      ...Array.from(new Set(state.data.map(d => d.Player))),default_selection])
+      .join("option")
     .attr("value", d => d)
     .text(d => d);
+
+    selectElement.property("value", default_selection);
 
     // ----------------------- Svg creation ------------------------
 
@@ -66,7 +70,8 @@ function init() {
 
     g.append("g").call(d3.axisLeft(yScale))
     .style('color', '#000')
-    .attr('class', 'axis axis-left');
+    .attr('class', 'axis axis-left')
+
 
     g.append("g").call(d3.axisBottom(xScale))
     .attr('transform', `translate(0, ${innerHeight})`)
@@ -78,18 +83,21 @@ function init() {
 
 function draw() {
  
+
+
+
 // ------------------ filter function ------------------------
 
-  let filteredData = state.data
+  let filteredData;
 
-  if (state.selection !== "All") {
+  if (state.selection !== "null") {
     filteredData = state.data.filter(d => d.Player === state.selection)
   }
  
   // ----------------------- dots ------------------------
    dots = g.selectAll("dot")
-    .data(filteredData)
-    .join(enter => enter
+      .data(filteredData)
+      .join(enter => enter
       .append('circle')
       .attr("r", 0)
       .style('opacity', 0)
@@ -97,10 +105,10 @@ function draw() {
       .attr("cx", d => xScale(d.Year))
       .attr("cy", d => yScale(d.Points))
       .style('fill', d => {
-        if (d.Player === "Kobe Bryant") return "yellow";
-        else if (d.Player === "LeBron James") return "purple";
-       else if (d.Player === "Kevin Durant") return "blue";
-       else return "red";
+      if (d.Player === "Kobe Bryant") return "yellow";
+      else if (d.Player === "LeBron James") return "purple";
+      else if (d.Player === "Kevin Durant") return "blue";
+      else return "red";
       })
       .call( enter => enter
       .transition()
@@ -109,20 +117,16 @@ function draw() {
       .duration(1000)
       ),
       update => update
-      .call( update => update
+      .call( enter => enter
       .transition()
       .attr("r", 5)
       .duration(1500)
-      .transition()
       .attr("r", radius)
       .duration(1500)),
       exit => exit 
-      .call(exit => exit
+      .call( exit => exit 
       .transition()
+      .style('opacity', 0)
       .duration(1000)
-      .style("opacity", 0)
-      .remove()
-      )
-      )
-      console.log(dots)
-    }
+      .remove())
+    )}
