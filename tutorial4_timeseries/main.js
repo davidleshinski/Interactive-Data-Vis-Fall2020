@@ -2,7 +2,7 @@
 const width = 800,
   height = 700,
   margin = { top: 20, bottom: 40, left: 60, right: 40 },
-  radius = 5,
+  radius = 4,
   transistionRadius = 3,
   innerHeight = height - margin.top - margin.bottom,
 innerWidth = width - margin.left - margin.right,
@@ -73,12 +73,15 @@ function init() {
     g.append("g").call(d3.axisLeft(yScale))
     .style('color', '#fff')
     .attr('class', 'axis axis-left')
+    // .text('Points')
 
 
     g.append("g").call(d3.axisBottom(xScale))
     .attr('transform', `translate(0, ${innerHeight})`)
     .style('color', '#fff')
-    .attr('class', 'axis axis-bottom');
+    .attr('class', 'axis axis-bottom')
+  // .text("Year");
+
 
   draw();
 }
@@ -119,7 +122,7 @@ const lineFunc = d3.line()
       .call( enter => enter
       .transition()
       .attr("r", radius)
-      .style('opacity', '1')
+      .style('opacity', '.6')
       .duration(1000)
       ),
       update => update
