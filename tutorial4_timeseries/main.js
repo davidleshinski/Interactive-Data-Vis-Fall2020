@@ -1,11 +1,12 @@
 // ----------------------- constants ------------------------
-const width = 900,
-  height = 800,
+const width = 700,
+  height = 600,
   margin = { top: 20, bottom: 40, left: 60, right: 40 },
-  radius = 8,
+  radius = 4,
+  transistionRadius = 2,
   innerHeight = height - margin.top - margin.bottom,
 innerWidth = width - margin.left - margin.right,
-default_selection = "All"
+default_selection = "Select a player"
 
 let svg;
 let xScale;
@@ -19,7 +20,7 @@ let state = {
 };
 
 /* LOAD DATA */
-d3.csv("../data/nba_player_stats.csv", d3.autoType).then(raw_data => {
+d3.csv("../data/nba_playoffs_stats.csv", d3.autoType).then(raw_data => {
   console.log("raw_data", raw_data);
   state.data = raw_data;
   init();
@@ -46,7 +47,7 @@ function init() {
     draw();
   });
 
-  options = selectElement.selectAll("option")
+ const options = selectElement.selectAll("option")
     .data([
       ...Array.from(new Set(state.data.map(d => d.Player))),default_selection])
       .join("option")
@@ -82,32 +83,36 @@ function init() {
 }
 
 function draw() {
- 
 
+  // ------------------------ line function ---------------------
+ 
+const lineFunc = d3.line()
+.x(d => xScale(d.Year))
+.y(d => yScale(d.Points));
 
 
 // ------------------ filter function ------------------------
 
-  let filteredData;
+  let filteredData = []
 
-  if (state.selection !== "null") {
+  if (state.selection !== null) {
     filteredData = state.data.filter(d => d.Player === state.selection)
   }
  
   // ----------------------- dots ------------------------
-   dots = g.selectAll("dot")
+   const dots = g.selectAll("dot")
       .data(filteredData)
       .join(enter => enter
       .append('circle')
+      .attr('class', "dot")
       .attr("r", 0)
       .style('opacity', 0)
-      .attr('class', "dot")
       .attr("cx", d => xScale(d.Year))
       .attr("cy", d => yScale(d.Points))
       .style('fill', d => {
-      if (d.Player === "Kobe Bryant") return "yellow";
-      else if (d.Player === "LeBron James") return "purple";
-      else if (d.Player === "Kevin Durant") return "blue";
+      if (d.Points >= 600) return "gold";
+      else if (d.Points >= 300 && d.Points <= 599) return "limegreen";
+      else if (d.Points >= 100 && d.Points <= 299) return "blue";
       else return "red";
       })
       .call( enter => enter
@@ -117,9 +122,9 @@ function draw() {
       .duration(1000)
       ),
       update => update
-      .call( enter => enter
+      .call( update => update
       .transition()
-      .attr("r", 5)
+      .attr("r", transistionRadius)
       .duration(1500)
       .attr("r", radius)
       .duration(1500)),
@@ -129,4 +134,42 @@ function draw() {
       .style('opacity', 0)
       .duration(1000)
       .remove())
-    )}
+    )
+
+    // --------------------------- line -------------------------
+
+    const line = g
+    .selectAll("path.trend")
+    .data([filteredData])
+    .join(
+      enter => enter
+          .append("path")
+          .attr("class", "trend")
+          .attr("d", d => lineFunc(d))
+          // .attr("opacity", 0)
+          .style('stroke', '#000')
+            .call( enter => enter
+              .transition()
+              
+              .duration(2000)
+              ),
+              update => update
+              .attr("d", d => lineFunc(d))
+              .call( update => update
+              .transition()
+              .attr("r", transistionRadius)
+              .duration(1500)
+              .attr("r", radius)
+              .duration(1500)),
+              exit => exit 
+              .call( exit => exit 
+              .transition()
+              .style('opacity', 0)
+              .duration(1000)
+              .remove())
+            )
+console.log(line)
+console.log(filteredData)
+console.log(dots)
+        
+}

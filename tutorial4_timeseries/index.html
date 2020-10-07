@@ -5,12 +5,22 @@
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-  
+  <div class="selector">
     <label for="dropdown">Filter Selection</label>
     <select id="dropdown" name="dropdown"></select>
+  </div>
     <div id="d3-container">
-
     </div>
+    <div class="legend-box">
+      <h2>Legend</h2>
+    <ul>
+      <li class="plus600">600+ points</li>
+      <li class="plus300">300 - 599 points</li>
+      <li class="below300">100 - 299 points</li>
+      <li class="below100">0 - 100 points</li>
+    </ul>
+    </div>
+
     <script src="../lib/d3.js"></script>
     <script src="main.js"></script>
   </body>

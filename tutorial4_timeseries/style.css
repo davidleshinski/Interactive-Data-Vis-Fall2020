@@ -1,0 +1,50 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.trend {
+    fill: none;
+}
+
+.legend-box {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: whitesmoke; 
+    padding: 10px;
+    margin-top: 5%;
+    margin-right: 5%;
+    opacity: .8;
+}
+
+.legend-box li {
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.legend-box ul {
+    list-style-type: none;
+}
+
+.plus600 {
+    color: gold;
+   opacity: 1 !important;
+}
+
+.plus300 {
+    color: limegreen;
+}
+ 
+.below300 {
+    color: blue;
+}
+
+.below100 {
+    color: red;
+}
+
+.selector {
+    margin-top: 5%;
+    margin-left: 5%;
+}
