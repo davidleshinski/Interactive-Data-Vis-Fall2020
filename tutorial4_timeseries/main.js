@@ -62,7 +62,8 @@ function init() {
     svg = d3.selectAll("#d3-container")
     .append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .attr('class', 'bigBox');
 
     g = svg.append("g")
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -77,7 +78,7 @@ function init() {
     .attr("class", "axis-label")
     .attr("y", "50%")
     .attr("dx", "-3em")
-    .attr("writing-mode", "vertical-rl")
+    .attr("writing-mode", "vertical-lr")
     .text("Points");
 
 
