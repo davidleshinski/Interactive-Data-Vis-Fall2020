@@ -25,6 +25,7 @@ select {
 
 .trend {
     fill: none;
+    stroke-width: 3;
 }
 
 .legend-box {

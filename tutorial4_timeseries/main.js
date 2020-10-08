@@ -1,9 +1,9 @@
 // ----------------------- constants ------------------------
-const width = 800,
-  height = 700,
+const width = 650,
+  height = 650,
   margin = { top: 20, bottom: 60, left: 60, right: 40 },
-  radius = 4,
-  transistionRadius = 3,
+  radius = 5,
+  transistionRadius = 2,
   innerHeight = height - margin.top - margin.bottom,
 innerWidth = width - margin.left - margin.right,
 default_selection = "Select a Player"
@@ -128,10 +128,11 @@ const lineFunc = d3.line()
       else if (d.Points >= 100 && d.Points <= 299) return "blue";
       else return "red";
       })
+      .style('stroke', '#fff')
       .call( enter => enter
       .transition()
       .attr("r", radius)
-      .style('opacity', '.6')
+      .style('opacity', '1')
       .duration(1000)
       ),
       update => update
