@@ -8,6 +8,8 @@ const width = 650,
 innerWidth = width - margin.left - margin.right,
 default_selection = "Select a Player"
 
+// const formatYear = d3.timeFormat('%Y'); I couldn't figure it out. See line 30.
+
 let svg;
 let xScale;
 let yScale;
@@ -20,7 +22,14 @@ let state = {
 };
 
 /* LOAD DATA */
-d3.csv("../data/nba_playoffs_stats.csv", d3.autoType).then(raw_data => {
+d3.csv("../data/nba_playoffs_stats.csv", d3.autoType
+// , 
+//   d => ({
+//   Year: new Date(d.Year),
+//   Player: d.Player,
+//   Points: +d.Points}) I tried to get rid of the comma in d.Year but it's just giving my x axis huge numbers in the millions
+  )
+  .then(raw_data => {
   console.log("raw_data", raw_data);
   state.data = raw_data;
   init();
