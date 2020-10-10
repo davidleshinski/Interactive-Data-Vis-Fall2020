@@ -29,12 +29,12 @@ select {
 }
 
 .legend-box {
-    text-align: right;
+    text-align: left;
     position: absolute;
     top: 0;
     right: 0;
     background-color: whitesmoke; 
-    padding: 10px;
+    padding: 2%;
     margin-top: 5%;
     opacity: 1;
     border: 1px solid #fff;
@@ -42,13 +42,12 @@ select {
 
 }
 
-.legend-box li {
-    font-weight: 500;
-    margin: 20px 0;
+.legend-head {
+    text-align: center;
 }
 
-.legend-box ul {
-    list-style-type: none;
+.legend-color {
+    margin-right: 5px;
 }
 
 .selector {
