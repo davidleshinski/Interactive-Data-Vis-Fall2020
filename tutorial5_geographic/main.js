@@ -9,11 +9,16 @@ const width = window.innerWidth * 0.9,
  * init() but need access to in draw().
  * All these variables are empty before we assign something to them.*/
 let svg;
-
+let g;
 /**
  * APPLICATION STATE
  * */
 let state = {
+  geojson: null,
+  hover: {
+    latitude: null, 
+    longitude: null,
+  }
   // + SET UP STATE
 };
 
@@ -22,11 +27,13 @@ let state = {
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
-  d3.json("PATH_TO_YOUR_GEOJSON"),
-  d3.csv("PATH_TO_ANOTHER_DATASET", d3.autoType),
-]).then(([geojson, otherData]) => {
+  d3.json("../data/usState.json"),
+  d3.csv("../data/usHeatExtremes.csv ", d3.autoType),
+]).then(([geojson, heatData]) => {
   // + SET STATE WITH DATA
-  console.log("state: ", state);
+  state.geojson = geojson
+  console.log("state: ", state.geojson);
+  console.log("heatData: ", heatData);
   init();
 });
 
