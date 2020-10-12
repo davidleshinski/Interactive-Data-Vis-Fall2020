@@ -74,12 +74,12 @@ unitedStates = svg.selectAll('path.borders')
 
   
   dots = svg.selectAll("circle")
-  .data([state.heatData])
+  .data(state.heatData)
   .join("circle")
-  .attr("r", 10)
+  .attr("r", 5)
   .attr("fill", "steelblue")
-  .attr('cx', d => projection([d.long, d.lat])[0])
-  .attr('cy', d => projection([d.long, d.lat])[1])
+  .attr('cx', d => projection([+d.Long, +d.Lat])[0])
+  .attr('cy', d => projection([+d.Long, +d.Lat])[1])
 
   // + ADD EVENT LISTENERS (if you want)
 
