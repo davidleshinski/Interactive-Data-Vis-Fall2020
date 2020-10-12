@@ -10,6 +10,7 @@ const width = window.innerWidth * 0.9,
  * All these variables are empty before we assign something to them.*/
 let svg;
 let g;
+let projection;
 /**
  * APPLICATION STAT
  *
@@ -37,8 +38,8 @@ Promise.all([
   // + SET STATE WITH DATA
   state.geojson = geojson
   state.heatData = heatData
-  console.log("state: ", state.geojson);
-  console.log("heatData: ", state.heatData);
+  console.log("state.geojson: ", state.geojson);
+  console.log("state.heatData: ", state.heatData);
   init();
 });
 
@@ -77,11 +78,8 @@ unitedStates = svg.selectAll('path.borders')
   .join("circle")
   .attr("r", 10)
   .attr("fill", "steelblue")
-  .attr("transform", d => {
-    const [x, y] = projection([d => d.long, d => d.lat]);
-    return `translate(${x}, ${y})`;
-  });
-
+  .attr('cx', d => projection([d.long, d.lat])[0])
+  .attr('cy', d => projection([d.long, d.lat])[1])
 
   // + ADD EVENT LISTENERS (if you want)
 
