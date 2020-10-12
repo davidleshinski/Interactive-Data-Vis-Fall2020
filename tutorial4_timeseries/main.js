@@ -148,6 +148,7 @@ const lineFunc = d3.line()
       .transition()
       .attr("r", '2')
       .duration(1500)
+      .transition()
       .attr("r", radius)
       .duration(1500)),
       exit => exit 
