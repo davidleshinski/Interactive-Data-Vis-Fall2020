@@ -3,7 +3,7 @@
  * */
 
 const width = window.innerWidth * 0.8,
-  height = window.innerHeight * 0.8,
+  height = window.innerHeight * 0.6,
   margin = { top: 50, bottom: 30, left: 60, right: 40 };
 
 /** these variables allow us to access anything we manipulate in
@@ -28,7 +28,7 @@ let state = {
 
 
 /**
- * LOAD DATA
+ --------------------------- LOAD DATA ------------------------------
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
@@ -54,7 +54,7 @@ function init() {
 
   color = d3.scaleLinear()
   .domain(d3.extent(state.heatData, d => d.ChangesIn95Days))
-  .range(["#1034A6", "#F62D2d"]);
+  .range(["#4fd5d6", "#ff0000"]);
 
   // --------------------------- svg creation ----------------------------
 
@@ -99,20 +99,18 @@ unitedStates = svg.selectAll('path.borders')
 
       // --------------------------- tooltip 4 circles ----------------------------
 
-      const tooltip = d3.selectAll('#d3-container')
+      const tooltip = d3.selectAll('#tooltip-box')
       .append('div')
       .attr('class', 'tooltip')
       .style('opacity', '0') 
       
       const dotToolOver = d => {
       tooltip 
-      .style('opacity', '0.7')
+      .style('opacity', '1')
       .style('fill', 'lightgrey') 
-      .html('<span>Changes in 95 days: ' + d.ChangesIn95Days + '<br> State: ' + d.State + '<br> Latitude: ' + d.Lat + ' <br> Longitude: ' + d.Long + '<br> </span>')
-      .style("top", "0")
-      .style("right", "0")
-      .style('padding-right', '5%')
-      .style('padding-top', '5%')
+      .html('<span> State: ' + d.State + '<br> Changes in 95 days: '  + d.ChangesIn95Days + '</span>')
+      .style('padding-left', '2%')
+      .style('padding-bottom', '2%')
     }
 
     // --------------------------- circles ----------------------------
@@ -120,7 +118,7 @@ unitedStates = svg.selectAll('path.borders')
   const dots = svg.selectAll("circle")
   .data(state.heatData)
   .join("circle")
-  .attr("r", 4)
+  .attr("r", 5)
   .attr('fill-opacity', '0.7')
   .attr("fill", d => color(d.ChangesIn95Days))
   .attr('stroke', d => color(d.ChangesIn95Days))
@@ -150,6 +148,7 @@ function draw() {
       .selectAll("div.row")
       .data(hoverData)
       .join("div")
+      // .append('div')
       .attr("class", "row")
       .html(
         d =>
