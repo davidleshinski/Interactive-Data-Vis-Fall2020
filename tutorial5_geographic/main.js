@@ -16,6 +16,9 @@ let projection;
  *
  * */
 
+let color;
+
+
  
 let state = {
   geojson: null,
@@ -49,6 +52,14 @@ Promise.all([
  * */
 function init() {
   // create an svg element in our main `d3-container` element
+
+
+  // color = d3.scaleLinear()
+  // .domain(d3.extent(state.data, d => d.ChangesIn95Days))
+  // .range(["#F8766D","#80F4CF"])
+
+
+
   svg = d3
     .select("#d3-container")
     .append("svg")
@@ -76,8 +87,8 @@ unitedStates = svg.selectAll('path.borders')
   dots = svg.selectAll("circle")
   .data(state.heatData)
   .join("circle")
-  .attr("r", 5)
-  .attr("fill", "steelblue")
+  .attr("r", 2)
+  .attr("fill", (
   .attr('cx', d => projection([+d.Long, +d.Lat])[0])
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
 
