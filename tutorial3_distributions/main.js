@@ -139,15 +139,15 @@ enter => enter
 update => update
 .call( update => update
 .transition()
-.attr("r", '5')
+.attr("r", 5)
 .duration(1500)
 .transition()
-.attr("r", '10')
+.attr("r", 10)
 .duration(1500)),
 exit => exit 
 .call( exit => exit 
 .transition().duration(1000)
-.style("opacity", '0')
+.style("opacity", 0)
 .remove()
 )
 )

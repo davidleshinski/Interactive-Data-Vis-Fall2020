@@ -1,9 +1,10 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
-const width = window.innerWidth * 0.9,
-  height = window.innerHeight * 0.7,
-  margin = { top: 60, bottom: 50, left: 60, right: 40 };
+
+const width = window.innerWidth * 0.8,
+  height = window.innerHeight * 0.8,
+  margin = { top: 50, bottom: 30, left: 60, right: 40 };
 
 /** these variables allow us to access anything we manipulate in
  * init() but need access to in draw().
@@ -11,11 +12,6 @@ const width = window.innerWidth * 0.9,
 let svg;
 let g;
 let projection;
-/**
- * APPLICATION STAT
- *
- * */
-
 let color;
 
 
@@ -26,7 +22,7 @@ let state = {
   hover: {
     latitude: null, 
     longitude: null,
-    state: null,
+    State: null,
   }
 };
 
@@ -54,12 +50,13 @@ Promise.all([
 function init() {
   // create an svg element in our main `d3-container` element
 
+  // --------------------------- color scale ----------------------------
 
   color = d3.scaleLinear()
   .domain(d3.extent(state.heatData, d => d.ChangesIn95Days))
   .range(["#1034A6", "#F62D2d"]);
 
-
+  // --------------------------- svg creation ----------------------------
 
   svg = d3
     .select("#d3-container")
@@ -67,11 +64,14 @@ function init() {
     .attr("width", width)
     .attr("height", height);
 
+// --------------------------- geo function ----------------------------
+
   projection = d3.geoAlbersUsa()
   .fitSize([width, height], state.geojson)
 
   geoPathFunc = d3.geoPath(projection)
 
+// --------------------------- path ----------------------------
   // + SET UP GEOPATH
 unitedStates = svg.selectAll('path.borders')
    .data(state.geojson.features)
@@ -79,21 +79,55 @@ unitedStates = svg.selectAll('path.borders')
    .attr('class', 'borders')
    .attr("d", d => geoPathFunc(d))
    .style('fill', 'none')
-   .style('stroke', '#000')
+   .style('stroke', 'grey')
   // + DRAW BASE MAP PATH
+    // .on("mousemove", d => {
+    //   state.hover["State"] = d.properties.NAME;}
+    //   )
 
+    // --------------------------- svg tooltip ----------------------------
 
+   svg.on("mousemove", () => {
+        // we can use d3.mouse() to tell us the exact x and y positions of our cursor
+        const [mx, my] = d3.mouse(svg.node());
+        // projection can be inverted to return [lat, long] from [x, y] in pixels
+        const proj = projection.invert([mx, my]);
+        state.hover["longitude"] = proj[0];
+        state.hover["latitude"] = proj[1];
+        draw();
+      });
+
+      // --------------------------- tooltip 4 circles ----------------------------
+
+      const tooltip = d3.selectAll('#d3-container')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', '0') 
+      
+      const dotToolOver = d => {
+      tooltip 
+      .style('opacity', '0.7')
+      .style('fill', 'lightgrey') 
+      .html('<span>Changes in 95 days: ' + d.ChangesIn95Days + '<br> State: ' + d.State + '<br> Latitude: ' + d.Lat + ' <br> Longitude: ' + d.Long + '<br> </span>')
+      .style("top", "0")
+      .style("right", "0")
+      .style('padding-right', '5%')
+      .style('padding-top', '5%')
+    }
+
+    // --------------------------- circles ----------------------------
   
-  dots = svg.selectAll("circle")
+  const dots = svg.selectAll("circle")
   .data(state.heatData)
   .join("circle")
-  .attr("r", 5)
+  .attr("r", 4)
   .attr('fill-opacity', '0.7')
   .attr("fill", d => color(d.ChangesIn95Days))
   .attr('stroke', d => color(d.ChangesIn95Days))
   .attr('stroke-width', 1)
   .attr('cx', d => projection([+d.Long, +d.Lat])[0])
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
+  .on('mouseover', dotToolOver)
   
 
   // + ADD EVENT LISTENERS (if you want)
@@ -105,4 +139,23 @@ unitedStates = svg.selectAll('path.borders')
  * DRAW FUNCTION
  * we call this everytime there is an update to the data/state
  * */
-function draw() {}
+
+ // --------------------------- geo hover tooltip ----------------------------
+
+function draw() {
+    // return an array of [key, value] pairs
+    hoverData = Object.entries(state.hover);
+
+    d3.select("#hover-content")
+      .selectAll("div.row")
+      .data(hoverData)
+      .join("div")
+      .attr("class", "row")
+      .html(
+        d =>
+          // each d is [key, value] pair
+          d[1] // check if value exist
+            ? `${d[0]}: ${d[1]}` // if they do, fill them in
+            : null // otherwise, show nothing
+      );
+}
