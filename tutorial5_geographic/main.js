@@ -26,6 +26,7 @@ let state = {
   hover: {
     latitude: null, 
     longitude: null,
+    state: null,
   }
 };
 
@@ -54,9 +55,9 @@ function init() {
   // create an svg element in our main `d3-container` element
 
 
-  // color = d3.scaleLinear()
-  // .domain(d3.extent(state.data, d => d.ChangesIn95Days))
-  // .range(["#F8766D","#80F4CF"])
+  color = d3.scaleLinear()
+  .domain(d3.extent(state.heatData, d => d.ChangesIn95Days))
+  .range(["#1034A6", "#F62D2d"]);
 
 
 
@@ -77,9 +78,8 @@ unitedStates = svg.selectAll('path.borders')
    .join('path')
    .attr('class', 'borders')
    .attr("d", d => geoPathFunc(d))
-   .style('fill', 'pink')
+   .style('fill', 'none')
    .style('stroke', '#000')
-   .style('opacity', '0.8');
   // + DRAW BASE MAP PATH
 
 
@@ -87,10 +87,14 @@ unitedStates = svg.selectAll('path.borders')
   dots = svg.selectAll("circle")
   .data(state.heatData)
   .join("circle")
-  .attr("r", 2)
-  .attr("fill", (
+  .attr("r", 5)
+  .attr('fill-opacity', '0.7')
+  .attr("fill", d => color(d.ChangesIn95Days))
+  .attr('stroke', d => color(d.ChangesIn95Days))
+  .attr('stroke-width', 1)
   .attr('cx', d => projection([+d.Long, +d.Lat])[0])
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
+  
 
   // + ADD EVENT LISTENERS (if you want)
 

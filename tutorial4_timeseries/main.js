@@ -121,8 +121,8 @@ const lineFunc = d3.line()
   }
  
   // ----------------------- dots ------------------------
-   const dots = g.selectAll("dot")
-      .data(filteredData)
+   const dots = g.selectAll(".dot")
+      .data(filteredData, d=> `${d.Player}_${d.Year}`)
       .join( enter => enter
       .append('circle')
       .attr('class', "dot")
@@ -141,7 +141,7 @@ const lineFunc = d3.line()
       .transition()
       .attr("r", radius)
       .style('opacity', '1')
-      .duration(1000)
+      .duration(2000)
       ),
       update => update
       .call( update => update
@@ -161,23 +161,24 @@ const lineFunc = d3.line()
 
     // --------------------------- line -------------------------
 
-    const line = g.selectAll("path.trend")
-      .data([filteredData])
+    const line = g.selectAll(".trend")
+      .data([filteredData], d=> `${d.Player}_${d.Year}`)
       .join( enter => enter
       .append("path")
       .attr("class", "trend")
-      .attr("d", d => lineFunc(d))
       .attr("opacity", '0')
+      .style('stroke', 'none')
       .call( enter => enter
       .transition()
+      .attr("d", d => lineFunc(d))
       .style('stroke', '#fff')
       .attr('opacity', '1')
       .duration(1000)
       ),
       update => update
-      .attr("d", d => lineFunc(d))
       .call( update => update
       .transition()
+      .attr("d", d => lineFunc(d))
       .duration(1500)),
       exit => exit 
       .call( exit => exit 
@@ -186,7 +187,7 @@ const lineFunc = d3.line()
       .duration(1000)
       .remove())
       )
-      console.log(filteredData)
+console.log(filteredData)
 console.log(line)
 
 console.log(dots)
