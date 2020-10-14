@@ -13,15 +13,15 @@ let svg;
 let g;
 let projection;
 let color;
-
+const radius = 5;
 
  
 let state = {
   geojson: null,
   heatData: null,
   hover: {
-    latitude: null, 
-    longitude: null,
+    Latitude: null, 
+    Longitude: null,
     State: null,
   }
 };
@@ -92,8 +92,8 @@ unitedStates = svg.selectAll('path.borders')
         const [mx, my] = d3.mouse(svg.node());
         // projection can be inverted to return [lat, long] from [x, y] in pixels
         const proj = projection.invert([mx, my]);
-        state.hover["longitude"] = proj[0];
-        state.hover["latitude"] = proj[1];
+        state.hover["Longitude"] = proj[0];
+        state.hover["Latitude"] = proj[1];
         draw();
       });
 
@@ -106,11 +106,19 @@ unitedStates = svg.selectAll('path.borders')
       
       const dotToolOver = d => {
       tooltip 
-      .style('opacity', '1')
-      .style('fill', 'lightgrey') 
+      .style('opacity', '.8')
+      .style('background-color', 'black') 
       .html('<span> State: ' + d.State + '<br> Changes in 95 days: '  + d.ChangesIn95Days + '</span>')
-      .style('padding-left', '2%')
-      .style('padding-bottom', '2%')
+      .style('padding', '10px 5px')
+      .style("left", (d3.event.pageX + 10) + "px")
+      .style("top", (d3.event.pageY -30) + "px")
+      .style('border-radius', '10%')
+      .style('font-size', '13px')
+    }
+
+    const dotToolLeave = d => {
+      tooltip
+      .style('opacity', '0')
     }
 
     // --------------------------- circles ----------------------------
@@ -118,14 +126,27 @@ unitedStates = svg.selectAll('path.borders')
   const dots = svg.selectAll("circle")
   .data(state.heatData)
   .join("circle")
-  .attr("r", 5)
+  .attr("r", radius)
   .attr('fill-opacity', '0.7')
   .attr("fill", d => color(d.ChangesIn95Days))
   .attr('stroke', d => color(d.ChangesIn95Days))
   .attr('stroke-width', 1)
   .attr('cx', d => projection([+d.Long, +d.Lat])[0])
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
+  .on('mousemove', d => {
+    d3.select(this)
+    circle
+   .transition()
+   .duration(500)
+    .attr('r', radius * 2)})
+  .on('mouseleave', d => {
+   d3.select(this)
+    .transition()
+    .duration(500)
+    .attr('r', radius)
+  })  
   .on('mouseover', dotToolOver)
+  .on('mouseleave', dotToolLeave)
   
 
   // + ADD EVENT LISTENERS (if you want)

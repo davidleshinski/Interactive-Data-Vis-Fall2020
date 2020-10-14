@@ -11,6 +11,7 @@ body {
     background-image: linear-gradient(to bottom, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
     box-shadow: 0 5px 10px rgba(256,256,256,0.05);
     border-radius: 1%;
+    position: relative;
 }
 
 .dots {
@@ -18,18 +19,17 @@ body {
 }
 
 .tooltip {
-    position: relative;
+    position: absolute;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     pointer-events: none;
   }
-  /* svg {
-      padding-top: 2%;
-  } */
 
   #hover-content {
-      padding-top: 2%;
-      padding-left: 2%;
-  }
+ padding: 1% 2% 0 0;
+ position: absolute;
+ bottom: 0;
+ right: 0;
+}
   .borders {
       padding: 10%;
   }
