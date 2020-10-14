@@ -135,7 +135,6 @@ unitedStates = svg.selectAll('path.borders')
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
   .on('mousemove', d => {
     d3.select(this)
-    circle
    .transition()
    .duration(500)
     .attr('r', radius * 2)})
