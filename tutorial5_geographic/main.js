@@ -97,12 +97,13 @@ unitedStates = svg.selectAll('path.borders')
         draw();
       });
 
-      // --------------------------- tooltip 4 circles ----------------------------
+      // --------------------------- tooltip details ----------------------------
 
       const tooltip = d3.selectAll('#tooltip-box')
       .append('div')
       .attr('class', 'tooltip')
-      .style('opacity', '0') 
+      .style('opacity', '0')
+      .style('z-index', '2') 
       
       const dotToolOver = d => {
       tooltip 
@@ -119,6 +120,23 @@ unitedStates = svg.selectAll('path.borders')
     const dotToolLeave = d => {
       tooltip
       .style('opacity', '0')
+    }
+
+// --------------------------- circle hover ----------------------------
+/* ----------- not working --------- */
+const
+     circlesGrow = (d, i) => {
+      d3.select(this)
+      .transition()
+      .duration(500)
+      .attr('r', radius * 1.5)
+    }
+    ,
+     circleShrink = (d, i) => {
+      d3.select(this)
+      .transition()
+      .duration(500)
+      .attr('r', radius)
     }
 
     // --------------------------- circles ----------------------------
@@ -145,20 +163,9 @@ unitedStates = svg.selectAll('path.borders')
   .call( exit => exit 
     .transition()
     .duration(1000)
-    .remove()
-  )
-  )
-  .on('mousemove', d => {
-    d3.select(this)
-   .transition()
-   .duration(500)
-    .attr('r', radius * 1.5)})
-  .on('mouseleave', d => {
-   d3.select(this)
-    .transition()
-    .duration(500)
-    .attr('r', radius)
-  })  
+    .remove()))
+    .on('mouseover', circlesGrow) /* ----------- not working --------- */
+    .on('mouseleave', circleShrink) /* ----------- not working --------- */  
   .on('mouseover', dotToolOver)
   .on('mouseleave', dotToolLeave)
 
