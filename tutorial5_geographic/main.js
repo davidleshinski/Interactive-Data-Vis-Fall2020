@@ -123,15 +123,16 @@ unitedStates = svg.selectAll('path.borders')
 // --------------------------- circle hover ----------------------------
 /* ----------- not working --------- */
 const
-     circlesGrow = (d, i) => {
-      d3.select(this)
+      circlesGrow = function (that) {
+        console.log(that)
+      d3.select(that)
       .transition()
-      .duration(500)
+      .duration(300)
       .attr('r', radius * 1.5)
     }
     ,
-     circleShrink = (d, i) => {
-      d3.select(this)
+     circleShrink = function (that) {
+      d3.select(that)
       .transition()
       .duration(500)
       .attr('r', radius)
@@ -162,11 +163,14 @@ const
     .transition()
     .duration(1000)
     .remove()))
-    .on('mouseover', circlesGrow) /* ----------- not working --------- */
-    .on('mouseleave', circleShrink) /* ----------- not working --------- */  
-  .on('mouseover', dotToolOver)
-  .on('mouseleave', dotToolLeave)
-
+/* ----------- not working --------- */
+  /* ----------- not working --------- */  
+  .on('mouseover', function (d) { 
+    dotToolOver(d);
+  circlesGrow(this);})
+  .on('mouseleave',  function (d) { 
+    dotToolLeave(d);
+    circleShrink(this);})
   // + ADD EVENT LISTENERS (if you want)
 
   draw(); // calls the draw function
