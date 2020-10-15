@@ -41,9 +41,9 @@ body {
 
   .source {
       color: grey;
-      opacity: .8;
+      opacity: .5;
       font-size: 10px;
-      margin-left: 3%;
+      margin-left: 2%;
   }
 
   .source a {
