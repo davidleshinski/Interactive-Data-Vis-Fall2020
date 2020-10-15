@@ -146,7 +146,6 @@ unitedStates = svg.selectAll('path.borders')
     .transition()
     .duration(1000)
     .remove()
-
   )
   )
   .on('mousemove', d => {
