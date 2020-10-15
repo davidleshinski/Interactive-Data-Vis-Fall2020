@@ -128,7 +128,7 @@ const
       d3.select(that)
       .transition()
       .duration(300)
-      .attr('r', radius * 1.5)
+      .attr('r', radius * 2)
     }
     ,
      circleShrink = function (that) {
@@ -163,8 +163,6 @@ const
     .transition()
     .duration(1000)
     .remove()))
-/* ----------- not working --------- */
-  /* ----------- not working --------- */  
   .on('mouseover', function (d) { 
     dotToolOver(d);
   circlesGrow(this);})
