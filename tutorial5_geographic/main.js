@@ -1,8 +1,8 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
-
-const width = window.innerWidth * 0.8,
+const radius = 5,
+ width = window.innerWidth * 0.8,
   height = window.innerHeight * 0.6,
   margin = { top: 50, bottom: 30, left: 60, right: 40 };
 
@@ -13,8 +13,6 @@ let svg;
 let g;
 let projection;
 let color;
-const radius = 5;
-
  
 let state = {
   geojson: null,
