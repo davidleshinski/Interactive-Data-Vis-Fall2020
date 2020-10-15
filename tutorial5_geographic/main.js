@@ -125,19 +125,35 @@ unitedStates = svg.selectAll('path.borders')
   
   const dots = svg.selectAll("circle")
   .data(state.heatData)
-  .join("circle")
-  .attr("r", radius)
-  .attr('fill-opacity', '0.7')
+  .join( enter => enter
+    .append('circle')
+  .attr("r", 0)
+  .attr('fill-opacity', '0')
   .attr("fill", d => color(d.ChangesIn95Days))
   .attr('stroke', d => color(d.ChangesIn95Days))
-  .attr('stroke-width', 1)
+  .attr('stroke-width', 0)
   .attr('cx', d => projection([+d.Long, +d.Lat])[0])
   .attr('cy', d => projection([+d.Long, +d.Lat])[1])
+  .call( enter => enter 
+  .transition()
+  .duration(1000)
+  .attr("r", radius)
+  .attr('fill-opacity', '0.7')
+  .attr('stroke-width', 1)),
+  update => update,
+  exit => exit
+  .call( exit => exit 
+    .transition()
+    .duration(1000)
+    .remove()
+
+  )
+  )
   .on('mousemove', d => {
     d3.select(this)
    .transition()
    .duration(500)
-    .attr('r', radius * 2)})
+    .attr('r', radius * 1.5)})
   .on('mouseleave', d => {
    d3.select(this)
     .transition()
@@ -146,7 +162,6 @@ unitedStates = svg.selectAll('path.borders')
   })  
   .on('mouseover', dotToolOver)
   .on('mouseleave', dotToolLeave)
-  
 
   // + ADD EVENT LISTENERS (if you want)
 
