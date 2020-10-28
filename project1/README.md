@@ -1,1 +1,1 @@
-project1/download (1).png
+![alt text](https://github.com/davidleshinski/Interactive-Data-Vis-Fall2020/blob/master/project1/download%20(1).png?raw=true)
