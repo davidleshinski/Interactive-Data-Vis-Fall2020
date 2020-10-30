@@ -25,14 +25,14 @@ let state = {
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
-  d3.csv("../data/steam_users.csv"),
-  d3.csv("../data/steam_games.csv"),
+  d3.csv("../data/steam_users.csv", d3.autoType),
+  d3.csv("../data/steam_games.csv", d3.autoType),
 ]).then(([accountData, gameData]) => {
   // + SET STATE WITH DATA
   state.accountData = accountData
   state.gameData = gameData
-  console.log(state.accountData);
-  console.log(state.gameData);
+  console.log("accountData", state.accountData);
+  console.log("gameData", state.gameData);
   init();
 });
 
@@ -50,7 +50,8 @@ function init() {
          });
     
     options = selectElement.selectAll('option')
-    .data(["All", "Marvel", "DC"])
+    .data(["All",
+        ...Array.from(new Set(state.gameData.map(d => d.Name)))])
     .join('option')
     .attr("value", d => d)
     .text(d => d);
