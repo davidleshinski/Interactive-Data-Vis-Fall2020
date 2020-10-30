@@ -16,11 +16,7 @@ let color;
 let state = {
   accountData: null,
   gameData: null,
-  hover: {
-    Latitude: null, 
-    Longitude: null,
-    State: null,
-  }
+  gameSelection: "All",
 };
 
 
@@ -29,14 +25,14 @@ let state = {
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
-  d3.json("../"),
-  d3.csv("../", d3.autoType),
-]).then(([,]) => {
+  d3.csv("../data/steam_users.csv"),
+  d3.csv("../data/steam_games.csv"),
+]).then(([accountData, gameData]) => {
   // + SET STATE WITH DATA
-//   state.geojson = geojson
-//   state.heatData = heatData
-  console.log();
-  console.log();
+  state.accountData = accountData
+  state.gameData = gameData
+  console.log(state.accountData);
+  console.log(state.gameData);
   init();
 });
 
@@ -45,6 +41,19 @@ Promise.all([
  * this will be run *one time* when the data finishes loading in
  * */
 function init() {
+
+    const selectElement = d3.select("#dropdown").on("change", function() {
+        console.log(this.value)
+             state.gameSelection = this.value
+             console.log("new value is", this.value);
+              draw();
+         });
+    
+    options = selectElement.selectAll('option')
+    .data(["All", "Marvel", "DC"])
+    .join('option')
+    .attr("value", d => d)
+    .text(d => d);
  
   // + ADD EVENT LISTENERS (if you want)
 
