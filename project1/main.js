@@ -55,6 +55,18 @@ function init() {
     .join('option')
     .attr("value", d => d)
     .text(d => d);
+
+    svg = d3.select('#d3-chart-1')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+
+    xScale = d3.scaleLinear()
+    .domain()
+    .range()
+    yScale = d3.scaleLinear()
+    .domain()
+    .range()
  
   // + ADD EVENT LISTENERS (if you want)
 
