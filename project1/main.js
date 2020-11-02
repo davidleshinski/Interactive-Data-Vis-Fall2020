@@ -117,13 +117,13 @@ function draw() {
   let filteredData = state.gameData;
   // if there is a selectedParty, filter the data before mapping it to our elements
   if (state.gameSelection !== defaultGame) {
-    filteredData = state.gameData.filter(d => d.name === state.gameSelection);
+    filteredData = state.gameData.filter(d => d.Name === state.gameSelection);
   }
   dots = innerBox.selectAll('circle')
   .data(filteredData, d=> `${d.Name}_${d.Date}`)
   .join('circle')
   .attr('r', radius)
-  .attr('cx', d => xScale(d[state.viewerSelection]))
+  .attr('cx', d => xScale(d["Twitch Viewership"]))
   .attr('cy', d => yScale(d.Peak24hrs))
 
 }
