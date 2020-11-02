@@ -16,3 +16,11 @@ body {
 .data-tips {
 background-color: grey;
 }
+/* 
+.axis-label-left {
+    transform: rotate(10deg);
+} */
+
+#top-chart {
+    padding: 2% 5%;
+}
