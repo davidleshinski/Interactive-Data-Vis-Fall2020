@@ -2,12 +2,14 @@
  * CONSTANTS AND GLOBALS
  * */
 const radius = 5,
- width = window.innerWidth * 0.8,
-  height = window.innerHeight * 0.6,
-  margin = { top: 50, bottom: 30, left: 60, right: 40 },
+ width = 800,
+  height = 600,
+  margin = { top: 50, bottom: 30, left: 50, right: 90 },
+  innerBoxHeight = height - margin.top - margin.bottom,
+  innerBoxWidth = width - margin.left - margin.right,
   defaultGame = "All",
   defaultViewer = "Twitch Viewership",
-  defaultPlayerCount = "24h-Peak"
+  defaultPlayerCount = "Peak24hrs"
 
 /** these variables allow us to access anything we manipulate in
  * init() but need access to in draw().
@@ -24,8 +26,7 @@ let state = {
   accountData: [],
   gameData: [],
   gameSelection: defaultGame,
-  viewerSelection: defaultViewer,
-  playerCountSelection: defaultPlayerCount,
+  viewerSelection: defaultViewer
 };
 
 
@@ -67,37 +68,6 @@ function init() {
     .attr("value", d => d)
     .text(d => d);
 
-    // ------------------------- streaming dropdown -------------------
-
-    const selectViewer = d3.select("#dropdown2").on("change", function() {
-      console.log(this.value)
-           state.viewerSelection = this.value
-           console.log("new value is", this.value);
-            draw();
-       });
-  
-  viewerOptions = selectViewer.selectAll('option')
-  .data([defaultViewer,
-      ...Array.from(new Set(state.gameData.columns.slice(5,6)))])
-  .join('option')
-  .attr("value", d => d)
-  .text(d => d);
-
-     // ------------------------- player count dropdown -------------------
-
-     const selectPlayerCount = d3.select("#dropdown3").on("change", function() {
-      console.log(this.value)
-           state.playerCountSelection = this.value
-           console.log("new value is", this.value);
-            draw();
-       });
-  
-  PlayerCountOptions = selectPlayerCount.selectAll('option')
-  .data([defaultPlayerCount,
-      ...Array.from(new Set(state.gameData.columns.slice(3,4)))])
-  .join('option')
-  .attr("value", d => d)
-  .text(d => d);
 
   // ---------------------- svg --------------------
 
@@ -106,19 +76,32 @@ function init() {
     .attr('width', width)
     .attr('height', height)
 
+    innerBox = svg.append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
 
     // ----------------------- scales -------------------------
 
     xScale = d3.scaleLinear()
-    .domain([d3.min(state.gameData.map(d =>d[state.viewerSelection])), d3.max(state.gameData.map(d => d[state.viewerSelection]))])
-    .range(margin.left, width - margin.right)
+    .domain([d3.min(state.gameData.map(d =>d['Twitch Viewership'])), d3.max(state.gameData.map(d => d['Twitch Viewership']))])
+    .range([0, innerBoxWidth])
+
     yScale = d3.scaleLinear()
-    .domain([d3.min(state.gameData.map(d =>d[state.gameSelection])), d3.max(state.gameData.map(d => d[state.gameSelection]))])
-    .range(margin.top, height - margin.bottom)
+    .domain([d3.min(state.gameData.map(d =>d['Peak24hrs'])), d3.max(state.gameData.map(d => d['Peak24hrs']))])
+    .range([innerBoxHeight, 0])
 
-    xAxis 
+// ----------------------- axis' -----------------------------
 
-    yAxis
+    yAxis = innerBox.append('g')
+    .call(d3.axisLeft(yScale))
+    .style('color', '#000')
+
+    xAxis = innerBox.append('g')
+    .call(d3.axisBottom(xScale))
+    .style('color', '#000')
+    .attr('transform', `translate(0, ${innerBoxHeight})`)
+    .append('text')
+    .text(state.viewerSelection)
  
   // + ADD EVENT LISTENERS (if you want)
 
@@ -131,4 +114,16 @@ function init() {
  * */
 
 function draw() {
+  let filteredData = state.gameData;
+  // if there is a selectedParty, filter the data before mapping it to our elements
+  if (state.gameSelection !== defaultGame) {
+    filteredData = state.gameData.filter(d => d.name === state.gameSelection);
+  }
+  dots = innerBox.selectAll('circle')
+  .data(filteredData, d=> `${d.Name}_${d.Date}`)
+  .join('circle')
+  .attr('r', radius)
+  .attr('cx', d => xScale(d[state.viewerSelection]))
+  .attr('cy', d => yScale(d.Peak24hrs))
+
 }
