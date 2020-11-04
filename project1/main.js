@@ -7,8 +7,7 @@ const radius = 5,
   margin = { top: 50, bottom: 50, left: 100, right: 90 },
   innerBoxHeight = height - margin.top - margin.bottom,
   innerBoxWidth = width - margin.left - margin.right,
-  defaultGame = "All",
-  defaultPlayerCount = "Peak24hrs"
+  defaultGame = "All"
 
 /** these variables allow us to access anything we manipulate in
  * init() but need access to in draw().
