@@ -131,7 +131,7 @@ function init() {
 
 function draw() {
 
-  // ----------------------- circles-charrt-1 --------------------------
+  // ----------------------- circles-chart-1 --------------------------
 
   let filteredData = state.gameData;
   // if there is a selectedParty, filter the data before mapping it to our elements
