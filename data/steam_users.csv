@@ -1,94 +1,94 @@
-﻿Date,peakConcurrent 
-Jan-13,6.61
-Feb-13,6.51
-Mar-13,5.74
-Apr-13,5.6
-May-13,5.4
-Jun-13,5.25
-Jul-13,5.67
-Aug-13,5.71
-Sep-13,6.61
-Oct-13,6.83
-Nov-13,6.93
-Dec-13,7.68
-Jan-14,7.81
-Feb-14,7.48
-Mar-14,7.18
-Apr-14,7.01
-May-14,7.05
-Jun-14,7.85
-Jul-14,7.28
-Aug-14,7.17
-Sep-14,7.35
-Oct-14,7.58
-Nov-14,9.41
-Dec-14,8.36
-Jan-15,8.57
-Feb-15,8.94
-Mar-15,9.28
-Apr-15,9.47
-May-15,9.57
-Jun-15,10.27
-Jul-15,9.44
-Aug-15,10.07
-Sep-15,10.7
-Oct-15,12.59
-Nov-15,13.47
-Dec-15,11.64
-Jan-16,12.52
-Feb-16,12.86
-Mar-16,12.8
-Apr-16,12.93
-May-16,12.39
-Jun-16,12.34
-Jul-16,12.28
-Aug-16,11.96
-Sep-16,12.56
-Oct-16,13.08
-Nov-16,13.67
-Dec-16,13.69
-Jan-17,14.37
-Feb-17,14.06
-Mar-17,13.7
-Apr-17,13.71
-May-17,13.52
-Jun-17,14.01
-Jul-17,14.07
-Aug-17,14.23
-Sep-17,15.61
-Oct-17,16.72
-Nov-17,17.68
-Dec-17,17.99
-Jan-18,18.54
-Feb-18,18.36
-Mar-18,18.52
-Apr-18,17.2
-May-18,16.77
-Jun-18,17.23
-Jul-18,16.36
-Aug-18,16.03
-Sep-18,16.8
-Oct-18,16.3
-Nov-18,16.61
-Dec-18,16.97
-Jan-19,17.53
-Feb-19,17.62
-Mar-19,17.28
-Apr-19,17.13
-May-19,16.98
-Jun-19,16.49
-Jul-19,16.53
-Aug-19,15.99
-Sep-19,16.54
-Oct-19,16.83
-19-Nov,16.97
-Dec-19,17.6
-Jan-20,18.33
-Feb-20,19.11
-Mar-20,23.64
-Apr-20,24.54
-May-20,23.52
-Jun-20,21.63
-Jul-20,20.85
-Aug-20,20.87
-Sep-20,21.97
+﻿monthYear,peakConcurrentInMillions
+January 2013,6.61
+February 2013,6.51
+March 2013,5.74
+April 2013,5.6
+May 2013,5.4
+June 2013,5.25
+July 2013,5.67
+August 2013,5.71
+September 2013,6.61
+October 2013,6.83
+November 2013,6.93
+December 2013,7.68
+January 2014,7.81
+February 2014,7.48
+March 2014,7.18
+April 2014,7.01
+May 2014,7.05
+June 2014,7.85
+July 2014,7.28
+August 2014,7.17
+September 2014,7.35
+October 2014,7.58
+November 2014,9.41
+December 2014,8.36
+January 2015,8.57
+February 2015,8.94
+March 2015,9.28
+April 2015,9.47
+May 2015,9.57
+June 2015,10.27
+July 2015,9.44
+August 2015,10.07
+September 2015,10.7
+October 2015,12.59
+November 2015,13.47
+December 2015,11.64
+January 2016,12.52
+February 2016,12.86
+March 2016,12.8
+April 2016,12.93
+May 2016,12.39
+June 2016,12.34
+July 2016,12.28
+August 2016,11.96
+September 2016,12.56
+October 2016,13.08
+November 2016,13.67
+December 2016,13.69
+January 2017,14.37
+February 2017,14.06
+March 2017,13.7
+April 2017,13.71
+May 2017,13.52
+June 2017,14.01
+July 2017,14.07
+August 2017,14.23
+September 2017,15.61
+October 2017,16.72
+November 2017,17.68
+December 2017,17.99
+January 2018,18.54
+February 2018,18.36
+March 2018,18.52
+April 2018,17.2
+May 2018,16.77
+June 2018,17.23
+July 2018,16.36
+August 2018,16.03
+September 2018,16.8
+October 2018,16.3
+November 2018,16.61
+December 2018,16.97
+January 2019,17.53
+February 2019,17.62
+March 2019,17.28
+April 2019,17.13
+May 2019,16.98
+June 2019,16.49
+July 2019,16.53
+August 2019,15.99
+September 2019,16.54
+October 2019,16.83
+November 2019,16.97
+December 2019,17.6
+January 2020,18.33
+February 2020,19.11
+March 2020,23.64
+April 2020,24.54
+May 2020,23.52
+June 2020,21.63
+July 2020,20.85
+August 2020,20.87
+September 2020,21.97

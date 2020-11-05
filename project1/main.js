@@ -1,7 +1,7 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
-const radius = 5,
+const radius = 7,
  width = 800,
   height = 600,
   margin = { top: 50, bottom: 50, left: 100, right: 90 },
@@ -32,7 +32,9 @@ let state = {
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
-  d3.csv("../data/steam_users.csv", d3.autoType),
+  d3.csv("../data/steam_users.csv",  d => ({
+    monthYear: new Date(d.monthYear),
+    peakConcurrentInMillions: +d.peakConcurrentInMillions})),
   d3.csv("../data/steam_games.csv", d3.autoType),
 ]).then(([accountData, gameData]) => {
   // + SET STATE WITH DATA
@@ -80,16 +82,16 @@ function init() {
     // ----------------------- scales-chart-1 -------------------------
 
     xScale = d3.scaleLinear()
-    .domain([d3.min(state.gameData.map(d =>d.Twitch24hrs)), d3.max(state.gameData.map(d => d.Twitch24hrs))])
+    .domain([0, d3.max(state.gameData.map(d => d.Twitch24hrs))])
     .range([0, innerBoxWidth])
 
     yScale = d3.scaleLinear()
-    .domain([d3.min(state.gameData.map(d =>d.Peak24hrs)), d3.max(state.gameData.map(d => d.Peak24hrs))])
+    .domain([0, d3.max(state.gameData.map(d => d.Peak24hrs))])
     .range([innerBoxHeight, 0])
 
      myColor = d3.scaleOrdinal()
      .domain(state.gameData)
-    .range(d3.schemeSet3);
+    .range(d3.schemePaired);
 
 // ----------------------- axis'-chart-1 -----------------------------
 
@@ -99,7 +101,7 @@ function init() {
     .style('color', '#000')
     .append('text')
     .attr('class', 'axis-label-left')
-    .text('Peak conncurent Players in 24 hours')
+    .text('Peak Conncurent Players in 24 Hours')
     .style('fill', '#000')
     .attr("y", "50%")
     .attr("dx", "-7em")
@@ -113,12 +115,57 @@ function init() {
     .attr('class', 'axis axis-left')
     .append('text')
     .attr('class', 'axis-label-bottom')
-    .text('Peak conncurent viewers in 24 hours')
+    .text('Peak Conncurent Twitch Viewers in 24 Hours')
     .style('fill', '#000')
     .attr("x", "40%")
     .attr("dy", "4em")
    
-  // + ADD EVENT LISTENERS (if you want)
+    // ---------------------- svg-chart-2 --------------------
+
+  svg2 = d3.select('#d3-chart-2')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height)
+
+  innerBox2 = svg2.append('g')
+  .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+  // ----------------------- scales-chart-2 -------------------------
+
+xTimeScale = d3.scaleTime()
+.domain(d3.extent(state.accountData.map(d => d.monthYear)))
+.range([0, innerBoxWidth])
+
+yScale2 = d3.scaleLinear()
+.domain([0, 25])
+.range([innerBoxHeight, 0])
+
+// ----------------------- axis'-chart-2 ----------------------------
+
+yAxis2 = innerBox2.append('g')
+.call(d3.axisLeft(yScale2))
+.attr('class', 'axis axis-left')
+.style('color', '#000')
+.append('text')
+.attr('class', 'axis-label-left')
+.text('Peak Concurrent Steam Users')
+.style('fill', '#000')
+.attr("y", "50%")
+.attr("dx", "-7em")
+.attr("writing-mode", "vertical-lr")
+
+
+xAxis2 = innerBox2.append('g')
+.call(d3.axisBottom(xTimeScale))
+.attr('transform', `translate(0, ${innerBoxHeight})`)
+.style('color', '#000')
+.attr('class', 'axis axis-left')
+.append('text')
+.attr('class', 'axis-label-bottom')
+.text('Month/Year')
+.style('fill', '#000')
+.attr("x", "40%")
+.attr("dy", "4em")
 
   draw(); // calls the draw function
 }
@@ -144,13 +191,13 @@ function draw() {
     .attr('cx', d => xScale(d.Twitch24hrs))
     .attr('cy', d => yScale(d.Peak24hrs))
     .attr("fill", d => myColor(d.Name))
-    .attr("stroke", d => myColor(d.Name))
+    .attr("stroke", 'lightgrey')
     .style('opacity', 0)
     .attr('r', 0)
     .call( enter => enter
     .transition()
     .duration(1000)
-      .style('opacity', 1)
+      .style('opacity', 0.8)
       .attr('r', radius)
       ),
       update => update 
@@ -168,4 +215,15 @@ function draw() {
         .style('opacity', 0)
         .remove())
       )
+// -------------------- line-function-chart-2 -----------------------
+
+      const lineFunc = d3.line()
+.x(d => xTimeScale(d.monthYear))
+.y(d => yScale2(d.peakConcurrentInMillions));
+
+line = innerBox2.selectAll('path')
+.data([state.accountData], d => d.monthYear)
+.join('path')
+.attr("d", d => lineFunc(d))
+.attr('stroke', 'black')
 }
