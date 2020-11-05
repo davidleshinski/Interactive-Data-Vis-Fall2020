@@ -221,9 +221,11 @@ function draw() {
 .x(d => xTimeScale(d.monthYear))
 .y(d => yScale2(d.peakConcurrentInMillions));
 
-line = innerBox2.selectAll('path')
+line = innerBox2.selectAll('.trend')
 .data([state.accountData], d => d.monthYear)
 .join('path')
+.attr('class', 'trend')
 .attr("d", d => lineFunc(d))
 .attr('stroke', 'black')
+.attr('fill', 'none')
 }
