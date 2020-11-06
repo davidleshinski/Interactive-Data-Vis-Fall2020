@@ -16,18 +16,33 @@
   <div class="title-box">
     <h1>Top Steam Games Statistics</h1>
     <p>Steam is a video game digital distribution service by Valve. It was launched as a standalone software client in September 2003 as a way for Valve to provide automatic updates for their games, and expanded to include games from third-party publishers.<br><br>
-    The data below shows information on games launched from the steam library. (This does not include games launched from other laucnhers such as Epic Games and Blizzard)</p>
+    The data below shows information on games launched from the steam library that broke the top 10 in highest peak concurrent players in a 24 hour period spanning from October 28th - November 15th. (This does not include games launched from other libraries such as Epic Games and Blizzard and also excludes console player statistics)</p>
   </div>
-  <section id="top-chart">
-  <label for="dropdown">Select a game</label>
+  <div class="topchart-dropdown-1">
+  <label for="dropdown">Choose a Game</label>
   <select id="dropdown" name="dropdown"></select>
+</div>
 
-  <div class="data-tips"></div>
+  <section id="top-chart">
+
+
+  <div class="data-tips">
+
+  </div>
+  
   <div id="d3-chart-1"></div>
   <div class="description-tips"></div>
-
-  <div id="d3-chart-2"></div>
 </section>
+<div id="tooltip-box"></div>
+<section id="bottom-chart">
+  <div class="data-tips-2">
+
+  </div>
+  <div id="d3-chart-2"></div>
+
+</section>
+
+
   <script src="../lib/d3.js"></script>
     <script src="main.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>

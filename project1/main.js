@@ -1,9 +1,9 @@
 /**
  * CONSTANTS AND GLOBALS
  * */
-const radius = 7,
- width = 800,
-  height = 600,
+const radius = 6,
+ width = 750,
+  height = 550,
   margin = { top: 50, bottom: 50, left: 100, right: 90 },
   innerBoxHeight = height - margin.top - margin.bottom,
   innerBoxWidth = width - margin.left - margin.right,
@@ -19,7 +19,15 @@ let yAxis;
 let xScale;
 let yScale;
 let myColor;
- 
+let  tooltipHover1;
+let  tooltipLeave1;
+let tooltipDetails1;
+let tooltipDescription;
+let tooltipHover2;
+let tooltipLeave2;
+let tooltipForDots;
+let tooltipBoxHover1;
+
 let state = {
   accountData: [],
   gameData: [],
@@ -98,11 +106,11 @@ function init() {
     yAxis = innerBox.append('g')
     .call(d3.axisLeft(yScale))
     .attr('class', 'axis axis-left')
-    .style('color', '#000')
+    .style('color', '#fff')
     .append('text')
     .attr('class', 'axis-label-left')
     .text('Peak Conncurent Players in 24 Hours')
-    .style('fill', '#000')
+    .style('fill', '#fff')
     .attr("y", "50%")
     .attr("dx", "-7em")
     .attr("writing-mode", "vertical-lr")
@@ -111,14 +119,58 @@ function init() {
     xAxis = innerBox.append('g')
     .call(d3.axisBottom(xScale))
     .attr('transform', `translate(0, ${innerBoxHeight})`)
-    .style('color', '#000')
+    .style('color', '#fff')
     .attr('class', 'axis axis-left')
     .append('text')
     .attr('class', 'axis-label-bottom')
     .text('Peak Conncurent Twitch Viewers in 24 Hours')
-    .style('fill', '#000')
+    .style('fill', '#fff')
     .attr("x", "40%")
     .attr("dy", "4em")
+
+   // -----------------------tooltip-chart-1 -------------------------
+
+   tooltipDetails1 = d3.select(".data-tips") 
+   .style('opacity', '0')
+
+   tooltipHover1 = d => {
+    tooltipDetails1  
+    .html('<span> <strong>Game:</strong><br> ' + d.Name + '<br><br><strong>All-Time Player Count Peak in 24 Hours:</strong><br> ' + d['All-Time Peak'] + '<br><br><strong>All-Time Twitch Veiwership Peak in 24 Hours:</strong><br> '  + d['All-time Twitch Peak'] + '</span>')
+    .style('font-size', '13px')
+    .style('color', '#fff')
+    .style('opacity', '1')
+  }
+
+  tooltipDescription = d3.select(".description-tips") 
+  .style('opacity', '0')
+
+  tooltipHover2 = d => {
+    tooltipDescription
+   .html('<span><strong>Release Date:</strong><br> ' + d['Release Date'] + '<br><br><strong>Description:</strong><br> ' + d.Description + '</span>')
+   .style('font-size', '13px')
+   .style('color', '#fff')
+   .style('opacity', '1')
+ }
+
+ tooltipBoxHover1 = d3.selectAll('#tooltip-box')
+ .attr('class', 'tooltip')
+ .style('opacity', '0')
+ .style('z-index', '2') 
+
+  tooltipForDots = d => {
+  tooltipBoxHover1 
+ .style('opacity', '.8')
+ .html('<span><strong>Date:</strong><br> ' + d.Date + '<br><br><strong>Game:</strong><br> ' + d.Name + '<br><br><strong>Peak Players in 24 Hours:</strong><br> '  + d.Peak24hrs + '<br><br><strong>Peak Viewers in 24 Hours:</strong><br> ' + d['All-time Twitch Peak'] + '</span>')
+ .style('padding', '10px 5px')
+ .style("left", (d3.event.pageX - 100) + "px")
+ .style("top", (d3.event.pageY + 30) + "px")
+ .style('font-size', '13px')
+}
+
+tooltipLeave1 = d => {
+  tooltipBoxHover1 
+   .style('opacity', '0')
+ }
    
     // ---------------------- svg-chart-2 --------------------
 
@@ -145,27 +197,28 @@ yScale2 = d3.scaleLinear()
 yAxis2 = innerBox2.append('g')
 .call(d3.axisLeft(yScale2))
 .attr('class', 'axis axis-left')
-.style('color', '#000')
+.style('color', '#fff')
 .append('text')
 .attr('class', 'axis-label-left')
 .text('Peak Concurrent Steam Users')
-.style('fill', '#000')
+.style('fill', '#fff')
 .attr("y", "50%")
-.attr("dx", "-7em")
+.attr("dx", "-5em")
 .attr("writing-mode", "vertical-lr")
 
 
 xAxis2 = innerBox2.append('g')
 .call(d3.axisBottom(xTimeScale))
 .attr('transform', `translate(0, ${innerBoxHeight})`)
-.style('color', '#000')
+.style('color', '#fff')
 .attr('class', 'axis axis-left')
 .append('text')
 .attr('class', 'axis-label-bottom')
 .text('Month/Year')
-.style('fill', '#000')
+.style('fill', '#fff')
 .attr("x", "40%")
 .attr("dy", "4em")
+
 
   draw(); // calls the draw function
 }
@@ -191,13 +244,14 @@ function draw() {
     .attr('cx', d => xScale(d.Twitch24hrs))
     .attr('cy', d => yScale(d.Peak24hrs))
     .attr("fill", d => myColor(d.Name))
-    .attr("stroke", 'lightgrey')
+    .attr("stroke", '#fff')
+    .style('cursor', 'pointer')
     .style('opacity', 0)
     .attr('r', 0)
     .call( enter => enter
     .transition()
     .duration(1000)
-      .style('opacity', 0.8)
+      .style('opacity', 0.6)
       .attr('r', radius)
       ),
       update => update 
@@ -215,6 +269,16 @@ function draw() {
         .style('opacity', 0)
         .remove())
       )
+.on('mouseover', (d) => {
+  tooltipHover1(d); 
+  tooltipHover2(d);
+  tooltipForDots(d)
+
+})
+.on('mouseleave', (d) => {
+ tooltipLeave1();
+})
+
 // -------------------- line-function-chart-2 -----------------------
 
       const lineFunc = d3.line()
@@ -226,6 +290,6 @@ line = innerBox2.selectAll('.trend')
 .join('path')
 .attr('class', 'trend')
 .attr("d", d => lineFunc(d))
-.attr('stroke', 'black')
+.attr('stroke', '#fff')
 .attr('fill', 'none')
 }
