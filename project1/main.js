@@ -2,9 +2,9 @@
  * CONSTANTS AND GLOBALS
  * */
 const radius = 6,
- width = 750,
-  height = 550,
-  margin = { top: 50, bottom: 50, left: 100, right: 90 },
+ width = 800,
+  height = 600,
+  margin = { top: 10, bottom: 50, left: 100, right: 90 },
   innerBoxHeight = height - margin.top - margin.bottom,
   innerBoxWidth = width - margin.left - margin.right,
   defaultGame = "All"
@@ -135,22 +135,22 @@ function init() {
 
    tooltipHover1 = d => {
     tooltipDetails1  
-    .html('<span> <strong>Game:</strong><br> ' + d.Name + '<br><br><strong>All-Time Player Count Peak in 24 Hours:</strong><br> ' + d['All-Time Peak'] + '<br><br><strong>All-Time Twitch Veiwership Peak in 24 Hours:</strong><br> '  + d['All-time Twitch Peak'] + '</span>')
+    .html('<span> <strong>Game:</strong><br> ' + d.Name + '<br><br><strong>All-Time Player Count Peak in 24 Hours:</strong><br> ' + d['All-Time Peak'] + '<br><br><strong>All-Time Twitch Veiwership Peak in 24 Hours:</strong><br> '  + d['All-time Twitch Peak'] + '<br><br><strong>Release Date:</strong><br> ' + d['Release Date'] + '<br><br><strong>Description:</strong><br> ' + d.Description + '</span>')
     .style('font-size', '13px')
     .style('color', '#fff')
     .style('opacity', '1')
   }
 
-  tooltipDescription = d3.select(".description-tips") 
-  .style('opacity', '0')
+//   tooltipDescription = d3.select(".description-tips") 
+//   .style('opacity', '0')
 
-  tooltipHover2 = d => {
-    tooltipDescription
-   .html('<span><strong>Release Date:</strong><br> ' + d['Release Date'] + '<br><br><strong>Description:</strong><br> ' + d.Description + '</span>')
-   .style('font-size', '13px')
-   .style('color', '#fff')
-   .style('opacity', '1')
- }
+//   tooltipHover2 = d => {
+//     tooltipDescription
+//    .html('<span><strong>Release Date:</strong><br> ' + d['Release Date'] + '<br><br><strong>Description:</strong><br> ' + d.Description + '</span>')
+//    .style('font-size', '13px')
+//    .style('color', '#fff')
+//    .style('opacity', '1')
+//  }
 
  tooltipBoxHover1 = d3.selectAll('#tooltip-box')
  .attr('class', 'tooltip')
@@ -159,11 +159,11 @@ function init() {
 
   tooltipForDots = d => {
   tooltipBoxHover1 
- .style('opacity', '.8')
- .html('<span><strong>Date:</strong><br> ' + d.Date + '<br><br><strong>Game:</strong><br> ' + d.Name + '<br><br><strong>Peak Players in 24 Hours:</strong><br> '  + d.Peak24hrs + '<br><br><strong>Peak Viewers in 24 Hours:</strong><br> ' + d['All-time Twitch Peak'] + '</span>')
+ .style('opacity', '1')
+ .html('<span><strong>Date:</strong><br> ' + d.Date + '<br><br><strong>Game:</strong><br> ' + d.Name + '<br><br><strong>Peak Players in 24 Hours:</strong><br> '  + d.Peak24hrs + '<br><br><strong>Peak Viewers in 24 Hours:</strong><br> ' + d.Twitch24hrs + '</span>')
  .style('padding', '10px 5px')
- .style("left", (d3.event.pageX - 100) + "px")
- .style("top", (d3.event.pageY + 30) + "px")
+ .style("left", (d3.event.pageX + 30) + "px")
+ .style("top", (d3.event.pageY -50) + "px")
  .style('font-size', '13px')
 }
 
@@ -200,7 +200,7 @@ yAxis2 = innerBox2.append('g')
 .style('color', '#fff')
 .append('text')
 .attr('class', 'axis-label-left')
-.text('Peak Concurrent Steam Users')
+.text('Peak Concurrent Steam Users (Millions)')
 .style('fill', '#fff')
 .attr("y", "50%")
 .attr("dx", "-5em")
@@ -271,7 +271,7 @@ function draw() {
       )
 .on('mouseover', (d) => {
   tooltipHover1(d); 
-  tooltipHover2(d);
+  // tooltipHover2(d);
   tooltipForDots(d)
 
 })
