@@ -4,7 +4,7 @@
 const radius = 6,
  width = 800,
   height = 600,
-  margin = { top: 10, bottom: 50, left: 100, right: 90 },
+  margin = { top: 40, bottom: 60, left: 120, right: 90 },
   innerBoxHeight = height - margin.top - margin.bottom,
   innerBoxWidth = width - margin.left - margin.right,
   defaultGame = "All"
@@ -111,9 +111,10 @@ function init() {
     .attr('class', 'axis-label-left')
     .text('Peak Conncurent Players in 24 Hours')
     .style('fill', '#fff')
-    .attr("y", "50%")
-    .attr("dx", "-7em")
+    .attr("y", "60%")
+    .attr("dx", "-6em")
     .attr("writing-mode", "vertical-lr")
+    .style("font-size", "13px") 
 
 
     xAxis = innerBox.append('g')
@@ -127,6 +128,18 @@ function init() {
     .style('fill', '#fff')
     .attr("x", "40%")
     .attr("dy", "4em")
+    .style("font-size", "13px") 
+
+    // ----------------- title-chart-1 -----------------------
+
+    innerBox.append("text")
+        .attr("x", (innerBoxWidth / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")
+        .attr("class", "chart-title")  
+        .style("font-size", "16px") 
+        .style("fill", "#fff")  
+        .text("Peak Concurrent Players by Peak Concurrent Twitch Viewers (24 Hours)");
 
    // -----------------------tooltip-chart-1 -------------------------
 
@@ -218,6 +231,8 @@ xAxis2 = innerBox2.append('g')
 .style('fill', '#fff')
 .attr("x", "40%")
 .attr("dy", "4em")
+
+
 
 
   draw(); // calls the draw function
