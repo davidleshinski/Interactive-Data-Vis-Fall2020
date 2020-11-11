@@ -27,6 +27,7 @@ let tooltipHover2;
 let tooltipLeave2;
 let tooltipForDots;
 let tooltipBoxHover1;
+let colorScale;
 
 let state = {
   accountData: [],
@@ -154,17 +155,6 @@ function init() {
     .style('opacity', '1')
   }
 
-//   tooltipDescription = d3.select(".description-tips") 
-//   .style('opacity', '0')
-
-//   tooltipHover2 = d => {
-//     tooltipDescription
-//    .html('<span><strong>Release Date:</strong><br> ' + d['Release Date'] + '<br><br><strong>Description:</strong><br> ' + d.Description + '</span>')
-//    .style('font-size', '13px')
-//    .style('color', '#fff')
-//    .style('opacity', '1')
-//  }
-
  tooltipBoxHover1 = d3.selectAll('#tooltip-box')
  .attr('class', 'tooltip')
  .style('opacity', '0')
@@ -232,8 +222,45 @@ xAxis2 = innerBox2.append('g')
 .attr("x", "40%")
 .attr("dy", "4em")
 
+// ---------------------- title-chart-2 ------------------------
+
+innerBox2.append("text")
+.attr("x", (innerBoxWidth / 2))             
+.attr("y", 0 - (margin.top / 2))
+.attr("text-anchor", "middle")
+.attr("class", "chart-title")  
+.style("font-size", "16px") 
+.style("fill", "#fff")  
+.text("Peak Concurrent Players Each Month Over the Years");
 
 
+// -------------------- tooltip-chart-2 -----------------------
+
+
+tooltipBoxHover2 = d3.selectAll('#tooltip-box-2')
+.attr('class', 'tooltip')
+.style('opacity', '0')
+.style('z-index', '2') 
+
+ tooltipForLine = d => {
+ tooltipBoxHover2 
+.style('opacity', '1')
+.html('<span><strong>month/Year:</strong><br> ' + d.monthYear + '<br><br><strong>Peak Concurrent Players (Millions):</strong><br> ' + d.peakConcurrentInMillions +'</span>')
+.style('padding', '10px 5px')
+.style("left", (d3.event.pageX + 30) + "px")
+.style("top", (d3.event.pageY + 30) + "px")
+.style('font-size', '13px')
+}
+
+tooltipLeave2 = d => {
+ tooltipBoxHover2 
+  .style('opacity', '0')
+}
+
+
+colorScale = d3.scaleLinear()
+.domain(d3.extent(state.accountData, d => d.peakConcurrentInMillions))
+.range(["#4fd5d6", "#ff0000"]);
 
   draw(); // calls the draw function
 }
@@ -286,8 +313,7 @@ function draw() {
       )
 .on('mouseover', (d) => {
   tooltipHover1(d); 
-  // tooltipHover2(d);
-  tooltipForDots(d)
+  tooltipForDots(d);
 
 })
 .on('mouseleave', (d) => {
@@ -307,4 +333,21 @@ line = innerBox2.selectAll('.trend')
 .attr("d", d => lineFunc(d))
 .attr('stroke', '#fff')
 .attr('fill', 'none')
+
+dots2 = innerBox2.selectAll('circle')
+.data(state.accountData)
+.join('circle')
+.style('fill', d => colorScale(d.peakConcurrentInMillions))
+.attr('cx', d => xTimeScale(d.monthYear))
+.attr('cy', d => yScale2(d.peakConcurrentInMillions))
+.attr('r', 4)
+.on('mousemove', (d) => {
+  // tooltipHover2(d); 
+
+  tooltipForLine(d);
+
+})
+.on('mouseleave', (d) => {
+ tooltipLeave2();
+})
 }
