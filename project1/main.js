@@ -2,8 +2,8 @@
  * CONSTANTS AND GLOBALS
  * */
 const radius = 6,
- width = 800,
-  height = 600,
+ width = 850,
+  height = 650,
   margin = { top: 40, bottom: 60, left: 120, right: 90 },
   innerBoxHeight = height - margin.top - margin.bottom,
   innerBoxWidth = width - margin.left - margin.right,
@@ -208,6 +208,7 @@ yAxis2 = innerBox2.append('g')
 .attr("y", "50%")
 .attr("dx", "-5em")
 .attr("writing-mode", "vertical-lr")
+.style('font-size', '13px')
 
 
 xAxis2 = innerBox2.append('g')
@@ -221,6 +222,7 @@ xAxis2 = innerBox2.append('g')
 .style('fill', '#fff')
 .attr("x", "40%")
 .attr("dy", "4em")
+.style('font-size', '13px')
 
 // ---------------------- title-chart-2 ------------------------
 
