@@ -2,4 +2,4 @@
 ![alt text](https://github.com/davidleshinski/Interactive-Data-Vis-Fall2020/blob/master/project2/2.png)
 ![alt text](https://github.com/davidleshinski/Interactive-Data-Vis-Fall2020/blob/master/project2/3.png)
 ![alt text](https://github.com/davidleshinski/Interactive-Data-Vis-Fall2020/blob/master/project2/4.png)
-![alt text]()
+![alt text](https://github.com/davidleshinski/Interactive-Data-Vis-Fall2020/blob/master/project2/5.png)
