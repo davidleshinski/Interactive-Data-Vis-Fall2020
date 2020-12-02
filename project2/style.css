@@ -1,5 +1,83 @@
+/* ---------------- constants ------------------ */
 body {
     background-color: rgb(62, 184, 62);
     color: whitesmoke;
     font-family: Montserrat;
+    font-size: 16px;
+}
+
+.center {
+    text-align: center;
+}
+
+.row {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.intro-box {
+    text-align: left;
+    padding: 2% 5%;
+    color: rgb(62, 184, 62);
+    background-color: whitesmoke;
+}
+.intro-box p {
+    margin-top: 40px;
+}
+.intro-box h1 {
+    font-weight: 900;
+}
+
+.quote-box {
+    padding: 4% 5% 0 5%;
+    text-align: center;
+}
+
+.quote-box p {
+    /* width: 40%; */
+    font-size: 20px;
+    font-style: italic;
+    margin-top: 100px;
+    align-self: start;
+}
+
+.intro-end {
+margin-top: 100px;
+padding: 0 5% 4% 5%;
+
+}
+
+.market-stats {
+    padding: 4% 5%;
+    background-color: whitesmoke;
+    color: rgb(62, 184, 62);
+}
+
+#d3-container-1{
+    text-align: center;
+
+
+}
+
+#d3-container-2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+#d3-container-2 p {
+   width: 25%;
+}
+
+.system-stats {
+    padding: 4% 5%;
+    color: whitesmoke;
+    background-color: rgb(62, 184, 62);
+}
+
+.gender-stats {
+    padding: 4% 5%;
+    color:  rgb(62, 184, 62);
+    background-color: whitesmoke;
 }
