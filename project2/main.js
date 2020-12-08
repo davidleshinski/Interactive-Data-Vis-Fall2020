@@ -44,12 +44,18 @@ let yAxisForBars2;
 let xAxisForBars2;
 let ageBars;
 
+let svgTree;
+let boxTree;
+let circlesTree;
+
+
 let state = {
   ageData: [],
   genderData: [],
   marketData: [],
   aprilRevData: [],
   worldData: [],
+  hover: []
 };
 
 Promise.all([
@@ -106,14 +112,29 @@ Promise.all([
     .call(d3.axisLeft(yScaleLine))
     .attr('class', 'axis axis-left')
     .style('color', '#rgb(62, 184, 62)')
-    .style('font-size','13px');
+    .style('font-size','13px')
+    .append('text')
+.attr("class", "axis-label")
+.attr("y", "55%")
+.attr("dx", "-4em")
+.attr("writing-mode", "vertical-lr")
+.style('fill','#000')
+.style('font-size','13px')
+.text("Dollars in Billions");
 
     xAxisLine = boxForLine.append('g')
     .call(d3.axisBottom(xScaleLine))
     .attr('transform', `translate(0, ${innerBoxHeight})`)
     .style('color', '#rgb(62, 184, 62)')
     .attr('class', 'axis axis-left')
-    .style('font-size','13px');
+    .style('font-size','13px')
+    .append('text')
+.attr("class", "axis-label")
+.attr("x", "35%")
+.attr("dy", "3em")
+.style('fill','#000')
+.style('font-size','13px')
+.text("Year");
 
 // ----------------------- svg-for-system-bars ------------------------
 svgForBars = d3.select("#d3-container-2")
@@ -141,13 +162,28 @@ xScaleForBars = d3.scaleBand()
 yAxisForBars = boxForBars.append("g")
 .call(d3.axisLeft(yScaleForBars))
 .style('color','#fff')
-.style('font-size','13px');
+.style('font-size','13px')
+.append('text')
+.attr("class", "axis-label")
+.attr("y", "55%")
+.attr("dx", "-4em")
+.attr("writing-mode", "vertical-lr")
+.style('fill','#fff')
+.style('font-size','13px')
+.text("Dollars in Billions");
 
 xAxisForBars = boxForBars.append("g")
 .call(d3.axisBottom(xScaleForBars))
 .attr('transform', `translate(0, ${innerBoxHeight})`)
 .style('color','#fff')
-.style('font-size','13px');
+.style('font-size','13px')
+.append('text')
+.attr("class", "axis-label")
+.attr("x", "35%")
+.attr("dy", "3em")
+.style('fill','#fff')
+.style('font-size','13px')
+.text("Platform");
 
 // ---------------------svg-for-gender-line----------------------
 
@@ -181,11 +217,26 @@ boxForLine2 = svgForLine2.append('g')
     xAxisForLine2 = boxForLine2.append("g")
     .call(d3.axisBottom(xScaleLine2))
     .attr('transform', `translate(0, ${innerBoxHeight})`)
-    .style('color', '#000');
+    .style('color', '#000')
+    .append('text')
+.attr("class", "axis-label")
+.attr("x", "35%")
+.attr("dy", "3em")
+.style('fill','#000')
+.style('font-size','13px')
+.text("Year");
 
   yAxisForLine2 = boxForLine2.append("g")
     .call(d3.axisLeft(yScaleLine2))
     .style('color', '#000')
+    .append('text')
+    .attr("class", "axis-label")
+    .attr("y", "55%")
+.attr("dx", "-4em")
+.attr("writing-mode", "vertical-lr")
+.style('fill','#000')
+.style('font-size','13px')
+.text("Percentage of Players");
 
   // color palette
   genderGroups = genderStats.map(function(d){ return d.key }) // list of group names
@@ -229,11 +280,11 @@ xScaleForBars2 = d3.scaleBand()
 
 yAxisForBars2 = boxForBars2.append("g")
 .call(d3.axisLeft(yScaleForBars2))
-
+.style('font-size','13px')
 .append('text')
 .attr("class", "axis-label")
 .attr("y", "55%")
-.attr("dx", "-3em")
+.attr("dx", "-4em")
 .attr("writing-mode", "vertical-lr")
 .style('fill','#fff')
 .style('font-size','13px')
@@ -242,14 +293,26 @@ yAxisForBars2 = boxForBars2.append("g")
 xAxisForBars2 = boxForBars2.append("g")
 .call(d3.axisBottom(xScaleForBars2))
 .attr('transform', `translate(0, ${innerBoxHeight})`)
+.style('font-size','13px')
 .append('text')
 .attr("class", "axis-label")
 .attr("x", "32%")
-.attr("dy", "3em")
+.attr("dy", "4em")
 .text("Age Range")
-.style('color', 'fff')
+.style('font-size','13px')
 .style('fill', '#fff')
 ;
+
+// -----------------bubbles-------------------------
+
+svgTree = d3.select('#d3-container-5')
+.append("svg")
+.attr('height', height)
+.attr('width', width)
+
+boxTree = svgTree.append("g")
+.attr("transform", "translate(0,0)")
+
 
 draw();
 }
@@ -334,4 +397,11 @@ ageBars= boxForBars2.selectAll(".big-bars2")
 .attr("x", d => xScaleForBars2(d.range))
 .attr("height", d => innerBoxHeight - yScaleForBars2(d.percent))
 .attr("width", d => xScaleForBars2.bandwidth());
-  }
+ 
+circlesTree = boxTree.selectAll(".tree-circles")
+.data(state.worldData)
+.join('circle')
+.attr("class", "tree-circles")
+.attr("r", 10)
+.attr("fill", 'lightblue')
+}
