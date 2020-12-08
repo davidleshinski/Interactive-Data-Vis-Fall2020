@@ -2,8 +2,8 @@
  * CONSTANTS AND GLOBALS
  * */
 const radius = 6,
-width = 850,
-height = 650,
+width = 750,
+height = 500,
 margin = { top: 40, bottom: 60, left: 120, right: 90 },
 innerBoxHeight = height - margin.top - margin.bottom,
 innerBoxWidth = width - margin.left - margin.right;
@@ -12,7 +12,6 @@ innerBoxWidth = width - margin.left - margin.right;
  * init() but need access to in draw().
  * All these variables are empty before we assign something to them.*/
 let svgForLine;
-// let g;
 let boxForLine;
 let xScaleLine;
 let yScaleLine;
@@ -21,6 +20,7 @@ let yAxisLine;
 let marketLine;
 let marketDots;
 let lineFunc;
+
 let svgForBars;
 let yScaleForBars;
 let xScaleForBars;
@@ -29,11 +29,20 @@ let systemBars;
 let yAxisForBars;
 let xAxisForBars;
 let genderStats;
+
 let svgForLine2;
 let xScaleLine2;
 let xAxisForLine2;
 let yAxisForLine2;
 let genderDots;
+
+let svgForBars2;
+let boxForBars2;
+let yScaleForBars2;
+let xScaleForBars2;
+let yAxisForBars2;
+let xAxisForBars2;
+let ageBars;
 
 let state = {
   ageData: [],
@@ -44,7 +53,7 @@ let state = {
 };
 
 Promise.all([
-    d3.csv("../data/gaming_ages.csv"),
+    d3.csv("../data/gaming_ages.csv", d3.autoType),
     d3.csv("../data/gaming_gender.csv",  d => ({
       year: new Date(d.year),
       gender: d.gender,
@@ -71,7 +80,7 @@ Promise.all([
 // ---------------- init function start------------------
   function init() {
 
-// --------------------- svg-for-line -------------------
+// --------------------- svg-for-Market-line -------------------
 
     svgForLine = d3.select('#d3-container-1')
     .append('svg')
@@ -81,7 +90,7 @@ Promise.all([
     boxForLine = svgForLine.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
   
-// --------------------- scales-for-line -------------------
+// --------------------- scales-for-Market-line -------------------
 
     xScaleLine = d3.scaleTime()
     .domain(d3.extent(state.marketData.map(d => d.Year)))
@@ -91,7 +100,7 @@ Promise.all([
     .domain([0,210])
     .range([innerBoxHeight, 0])
 
-// --------------------- axis'-for-line -------------------
+// --------------------- axis'-for-Market-line -------------------
 
     yAxisLine = boxForLine.append('g')
     .call(d3.axisLeft(yScaleLine))
@@ -106,26 +115,28 @@ Promise.all([
     .attr('class', 'axis axis-left')
     .style('font-size','13px');
 
-// ----------------------- svg-for-bars ------------------------
+// ----------------------- svg-for-system-bars ------------------------
 svgForBars = d3.select("#d3-container-2")
 .append("svg")
 .attr("width", width)
 .attr("height", height);
 
+boxForBars = svgForBars.append("g")
+.attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-yScaleForBars = d3.scaleBand()
+// ---------------------scale-for-system-bars----------------------
+
+xScaleForBars = d3.scaleBand()
 .domain(state.aprilRevData.map(d => d.system))
-.range([0, innerBoxHeight])
+.range([0, innerBoxWidth])
 .paddingInner(0.6)
 .paddingOuter(0.6);
 
- xScaleForBars = d3.scaleLinear()
+ yScaleForBars = d3.scaleLinear()
 .domain([0, d3.max(state.aprilRevData.map(d => d.total))])
-.range([0, innerBoxWidth]);
+.range([innerBoxHeight, 0]);
 
- boxForBars = svgForBars.append("g")
-.attr('transform', `translate(${margin.left}, ${margin.top})`);
-
+// ---------------------axis-for-system-bars----------------------
 
 yAxisForBars = boxForBars.append("g")
 .call(d3.axisLeft(yScaleForBars))
@@ -138,7 +149,7 @@ xAxisForBars = boxForBars.append("g")
 .style('color','#fff')
 .style('font-size','13px');
 
-// ---------------------svg-for-line-2----------------------
+// ---------------------svg-for-gender-line----------------------
 
     genderStats = d3.nest() // nest function allows to group the calculation per level of a factor
     .key(function(d) { return d.gender;})
@@ -153,7 +164,7 @@ boxForLine2 = svgForLine2.append('g')
 .attr('transform', `translate(${margin.left}, ${margin.top})`)
 .attr('position', 'relative');
 
-// ---------------------scales-for-line-2----------------------
+// ---------------------scales-for-gender-line----------------------
 
    xScaleLine2 = d3.scaleTime()
     .domain(d3.extent(state.genderData, function(d) { return d.year; }))
@@ -165,16 +176,16 @@ boxForLine2 = svgForLine2.append('g')
     .domain([0, 100])
     .range([ innerBoxHeight, 0]);
 
-    // ---------------------axis'-for-line-2----------------------
+    // ---------------------axis'-for-gender-line----------------------
 
     xAxisForLine2 = boxForLine2.append("g")
     .call(d3.axisBottom(xScaleLine2))
     .attr('transform', `translate(0, ${innerBoxHeight})`)
-    .style('color', 'rgb(62, 184, 62)');
+    .style('color', '#000');
 
   yAxisForLine2 = boxForLine2.append("g")
     .call(d3.axisLeft(yScaleLine2))
-    .style('color', 'rgb(62, 184, 62)')
+    .style('color', '#000')
 
   // color palette
   genderGroups = genderStats.map(function(d){ return d.key }) // list of group names
@@ -182,19 +193,68 @@ boxForLine2 = svgForLine2.append('g')
     .domain(genderGroups)
     .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
 
-  legendForLines2 = boxForLine2.append('div')
-  .attr('position', 'absolute')
-  .attr('bottom', '0')
-  .attr('right', '0')
-  .attr('class', 'legend-for-gender')
-  .append('p')
-  .text('Male')
-  .style('font-size', '50px')
-  .style('color', 'rgb(62, 184, 62)')
-    draw();
-  }
+  // legendForLines2 = boxForLine2.append('div')
+  // .attr('position', 'absolute')
+  // .attr('bottom', '0')
+  // .attr('right', '0')
+  // .attr('class', 'legend-for-gender')
+  // .append('p')
+  // .text('Male')
+  // .style('font-size', '50px')
+  // .style('color', '#000')
+  
+// ----------------------- svg-for-age-bars------------------------
+svgForBars2 = d3.select("#d3-container-4")
+.append("svg")
+.attr("width", width)
+.attr("height", height);
 
-  // --------------------- function-for-line -------------------
+boxForBars2 = svgForBars2.append("g")
+.attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+// ---------------------scale-for-age-bars----------------------
+
+xScaleForBars2 = d3.scaleBand()
+.domain(state.ageData.map(d => d.range))
+.range([0, innerBoxWidth])
+.paddingInner(0.5)
+.paddingOuter(0.5);
+
+ yScaleForBars2 = d3.scaleLinear()
+//  .domain([0,100])
+.domain([0, d3.max(state.ageData.map(d => d.percent))])
+.range([innerBoxHeight, 0]);
+
+// ---------------------axis-for-age-bars----------------------
+
+yAxisForBars2 = boxForBars2.append("g")
+.call(d3.axisLeft(yScaleForBars2))
+
+.append('text')
+.attr("class", "axis-label")
+.attr("y", "55%")
+.attr("dx", "-3em")
+.attr("writing-mode", "vertical-lr")
+.style('fill','#fff')
+.style('font-size','13px')
+.text("Percentage of Players");
+
+xAxisForBars2 = boxForBars2.append("g")
+.call(d3.axisBottom(xScaleForBars2))
+.attr('transform', `translate(0, ${innerBoxHeight})`)
+.append('text')
+.attr("class", "axis-label")
+.attr("x", "32%")
+.attr("dy", "3em")
+.text("Age Range")
+.style('color', 'fff')
+.style('fill', '#fff')
+;
+
+draw();
+}
+
+  // --------------------- function-for-Market-line-------------------
 
   lineFunc = d3.line()
   .x(d => xScaleLine(d.Year))
@@ -205,14 +265,14 @@ boxForLine2 = svgForLine2.append('g')
 // ---------------- draw function start------------------
   function draw() {
 
-    // --------------------- line-for-line -------------------
+    // --------------------- line+dots-for-Market-Line -------------------
 
 marketLine = boxForLine.selectAll('.trend')
 .data([state.marketData])
 .join('path')
 .attr('class', 'trend')
 .attr("d", d => lineFunc(d))
-.attr('stroke', 'rgb(62, 184, 62)')
+.attr('stroke', '#000')
 .attr('fill', 'none')
 .style('stroke-width', '2')
 
@@ -223,29 +283,28 @@ marketDots = boxForLine.selectAll('circle')
 .attr('cx', d => xScaleLine(d.Year))
 .attr('cy', d => yScaleLine(d.Value))
 .attr('r', 4)
-.style('fill', 'rgb(62, 184, 62)')
 
-// ------------------------- bars-for-bars ---------------------------------
+// ------------------------- bars-for-System-bars----------------------------
  systemBars = boxForBars.selectAll("rect")
 .data(state.aprilRevData)
 .join("rect")
 .attr("class", "big-bars")
 // .style("fill", (d,i) => blues(i))
-.attr("y", d => yScaleForBars(d.system))
+.attr("y", d => yScaleForBars(d.total))
 .style('fill', '#fff')
-// .attr("x", d => xScaleForBars())
-.attr("width", d => xScaleForBars(d.total))
-.attr("height", d => yScaleForBars.bandwidth());
-// .attr("height", d => yScaleForBars.bandwidth());
+.attr("x", d => xScaleForBars(d.system))
+.attr("height", d => innerBoxHeight - yScaleForBars(d.total))
+.attr("width", d => xScaleForBars.bandwidth());
 
-//----------------------------- lines-for-lines-2---------------------------
+//------------------------- lines+dots-for-gender-lines------------------------
 
 boxForLine2.selectAll(".line")
 .data(genderStats)
 .enter()
 .append("path")
+.attr('class', "line")
   .attr("fill", "none")
-  .attr("stroke", 'rgb(62, 184, 62)')
+  .attr("stroke", '#000')
   .attr("stroke-width", 2)
   .attr("d", function(d){
     return d3.line()
@@ -261,6 +320,18 @@ boxForLine2.selectAll(".line")
 .attr('cx', d => xScaleLine2(d.year))
 .attr('cy', d => yScaleLine2(d.percentage))
 .attr('r', 4)
-.style('fill', 'rgb(62, 184, 62)')}
 
 
+// ------------------------- bars-for-age-bars----------------------------\
+
+ageBars= boxForBars2.selectAll(".big-bars2")
+.data(state.ageData)
+.join("rect")
+.attr("class", "big-bars2")
+// .style("fill", (d,i) => blues(i))
+.style('fill', '#fff')
+.attr("y", d => yScaleForBars2(d.percent))
+.attr("x", d => xScaleForBars2(d.range))
+.attr("height", d => innerBoxHeight - yScaleForBars2(d.percent))
+.attr("width", d => xScaleForBars2.bandwidth());
+  }
