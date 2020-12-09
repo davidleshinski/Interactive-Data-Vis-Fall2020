@@ -1,9 +1,10 @@
 /* ---------------- constants ------------------ */
 body {
     background-color: rgb(62, 184, 62);
-    color: whitesmoke;
+    color: #fff;
     font-family: Montserrat;
     font-size: 16px;
+    line-height: 2;
 }
 
 .center {
@@ -18,7 +19,7 @@ body {
 .intro-box {
     text-align: left;
     padding: 2% 20%;
-    background-color: whitesmoke;
+    background-color: #fff;
     color: #000;
 }
 .intro-box p {
@@ -53,6 +54,10 @@ padding: 4% 20% 4% 20%;
     color: #000;
 }
 
+.market-tooltip {
+    position: absolute;
+}
+
 .market-stats p {
     padding: 0 20%;
 }
@@ -76,6 +81,10 @@ padding: 4% 20% 4% 20%;
 
 }
 
+.system-tooltip {
+    position: absolute;
+}
+
 .gender-stats {
     padding: 4% 5%;
     background-color: #fff;
@@ -86,9 +95,39 @@ padding: 4% 20% 4% 20%;
     padding: 0 20%;
 }
 
+.gender-tooltip {
+    position: absolute;
+}
+
 .age-stats {
     padding: 4% 5%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.age-tooltip {
+    position: absolute;
+}
+
+.worldwide-stats {
+    padding: 4% 5%;
+    background-color: #fff;
+}
+
+.worldwide-stats p {
+    padding: 0 20%;
+}
+
+.bubble-tooltip {
+    position: absolute;
+}
+
+.axis-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.axis {
+    font-size: 13px;
 }
