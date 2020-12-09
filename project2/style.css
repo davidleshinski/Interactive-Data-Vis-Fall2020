@@ -18,11 +18,12 @@ body {
 
 .intro-box {
     text-align: left;
-    padding: 2% 20%;
+    padding: 2% 5%;
     background-color: #fff;
     color: #000;
 }
 .intro-box p {
+    margin: 0 20%;
     margin-top: 40px;
 }
 .intro-box h1 {
