@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(to top, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    background-color: #1b2838;
+    color: #fff;
+}
+
+.title-box {
+    text-align: center;
+    color: whitesmoke;
+    padding: 1% 10%;
+    background-image: linear-gradient(to bottom, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    background-color: rgb(19, 19, 26);
+}
+.title-box h3, .title-box h1 {
+    margin: 0;
+    padding: 10px;
+}
+
+.title-box-p {
+ text-align: left;
+ font-size: 13px;
+}
+
+.topchart-dropdown-1 {
+    padding: 2% 10%;
+   background-color: rgb(19, 19, 26);
+   background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+}
+
+
+/* svg {
+    background-color: rgb(19, 19, 26);
+    background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+} */
+
+select {
+    color: grey;
+}
+
+.chart-title-box {
+    text-align: center;
+    color: whitesmoke;
+    padding: 1% 5%;
+}
+
+#top-chart {
+    display: flex;
+    justify-content: left;
+    padding: 2% 5% 10% 10%;
+    align-items: flex-start;
+}
+
+.data-tips {
+    margin-top: 100px;
+    padding: 5px 5px 5px 5px;
+    width: 25%;
+    background-color: rgb(19, 19, 26);
+    background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    box-shadow: 0 0 4px black;
+
+}
+
+/* .description-tips {
+    padding: 5px 5px 0 5px;
+    background-color: rgb(19, 19, 26);
+    width: 25%;
+    background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    box-shadow: 0 0 4px black;
+} */
+
+#tooltip-box {
+    position: absolute;
+    background-color: rgb(19, 19, 26);
+    background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    box-shadow: 0 0 4px black;
+}
+
+.chart-title-box-2 {
+    text-align: center;
+    color: whitesmoke;
+    padding: 1% 5%;
+}
+
+#bottom-chart {
+    display: flex;
+    justify-content: left;
+    padding: 2% 10% 5% 10%;
+    align-items: flex-start;
+}
+
+#tooltip-box-2 {
+    position: absolute;
+    background-color: rgb(19, 19, 26);
+    background-image: linear-gradient(to right, rgba(256,256,256,0.0),rgba(256,256,256,0.05));
+    box-shadow: 0 0 4px black;
+}
+
+.sources {
+    font-size: 10px;
+}
+
+.sources a {
+    color: grey;
+}

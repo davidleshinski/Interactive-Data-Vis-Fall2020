@@ -1,0 +1,134 @@
+/* ---------------- constants ------------------ */
+body {
+    background-color: rgb(62, 184, 62);
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 16px;
+    line-height: 2;
+}
+
+.center {
+    text-align: center;
+}
+
+.row {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.intro-box {
+    text-align: left;
+    padding: 2% 5%;
+    background-color: #fff;
+    color: #000;
+}
+.intro-box p {
+    margin: 0 20%;
+    margin-top: 40px;
+}
+.intro-box h1 {
+    font-weight: 900;
+}
+
+.quote-box {
+    padding: 4% 5% 4% 5%;
+    text-align: center;
+}
+
+.quote-box p {
+    /* width: 40%; */
+    font-size: 20px;
+    margin: 60px 0;
+    font-style: italic;
+    align-self: start;
+}
+
+.intro-end {
+margin-top: 100px;
+padding: 4% 20% 4% 20%;
+
+}
+
+.market-stats {
+    padding: 2% 5%;
+    background-color: #fff;
+    color: #000;
+}
+
+.market-tooltip {
+    position: absolute;
+}
+
+.market-stats p {
+    padding: 0 20%;
+}
+
+#d3-container-1{
+    text-align: center;
+}
+
+#d3-container-2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#d3-container-2 p {
+   width: 25%;
+}
+
+.system-stats {
+    padding: 4% 5%;
+
+}
+
+.system-tooltip {
+    position: absolute;
+}
+
+.gender-stats {
+    padding: 4% 5%;
+    background-color: #fff;
+    color: #000;
+}
+
+.gender-stats p {
+    padding: 0 20%;
+}
+
+.gender-tooltip {
+    position: absolute;
+}
+
+.age-stats {
+    padding: 4% 5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.age-tooltip {
+    position: absolute;
+}
+
+.worldwide-stats {
+    padding: 4% 5%;
+    background-color: #fff;
+}
+
+.worldwide-stats p {
+    padding: 0 20%;
+}
+
+.bubble-tooltip {
+    position: absolute;
+}
+
+.axis-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.axis {
+    font-size: 13px;
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Steam Games Stats</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="title-box">
+    <h1>Top 10 Steam Games</h1>
+    <h3>October 28th, 2020 - November 14th, 2020</h3>
+    <div class="title-box-p">
+      <p>Steam is an online platform from game developer Valve where you can buy, play, create, and discuss PC games. The platform hosts thousands of games (as well as downloadable content, or DLC, and user-generated features called "mods") from major developers and indie game designers alike.<br><br>
+         The first chart below shows information on games launched from the steam library that broke the top 10 in highest peak concurrent players in a 24 hour period spanning from October 28th - November 15th and compares it to their peak concurrent Twitch veiwership on those days. (This does not include games launched from other libraries such as Epic Games, Origins, and Blizzard. Also, excludes console player statistics)<br><br>
+         The second chart shows the growth of the steam launchers user base every month over a span of 7 years. 
+      </p>
+    </div>
+  </div>
+
+  <div class="topchart-dropdown-1">
+    <label for="dropdown">Choose a Game</label>
+    <select id="dropdown" name="dropdown"></select>
+  </div>
+
+  <section id="top-chart">
+
+    <div id="d3-chart-1"></div>
+    <div class="data-tips">
+    </div>
+  </section>
+
+  <div id="tooltip-box"></div>
+
+  <section id="bottom-chart">
+    <div class="data-tips-2">
+    </div>
+    <div id="d3-chart-2">
+    </div>
+  </section>
+  
+  <div id="tooltip-box-2"></div>
+
+  <div class="sources">
+    <p>Sources:<br>
+      <a href="https://twitchtracker.com/games/510218">https://twitchtracker.com/games/510218</a><br>
+      <a href="https://steamdb.info/graph/">https://steamdb.info/graph/</a><br>
+      <a href="https://store.steampowered.com/stats/">https://store.steampowered.com/stats/</a><br>
+      <a href="https://www.statista.com/statistics/308330/number-stream-users/">https://www.statista.com/statistics/308330/number-stream-users/</a>
+    </p>
+  </div>
+
+  <script src="../lib/d3.js">
+  </script>
+  <script src="main.js">
+  </script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js">
+  </script>
+</body>
+</html>

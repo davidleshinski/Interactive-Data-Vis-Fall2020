@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Data Visualization Tutorial</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="blur"></div>
+  <div class="selector">
+    <label for="dropdown">Filter Selection</label>
+    <select id="dropdown" name="dropdown"></select>
+  </div>
+    <div id="d3-container">
+    </div>
+    <div class="legend-box">
+      <span class="legend-head">
+      <h2>Legend</h2>
+      </span>
+      <hr>
+      <p class="plus600"><svg class="legend-color" width="10" height="10">
+        <rect width="10" height="10" style="fill:gold;"/></svg>600+ points</p>
+       <p class="plus300"><svg class="legend-color" width="10" height="10">
+        <rect width="10" height="10" style="fill:limegreen;"/>
+      </svg>300 - 599 points</p>
+      <p class="below300"><svg class="legend-color" width="10" height="10">
+        <rect width="10" height="10" style="fill:blue;"/>
+      </svg>100 - 299 points</p>
+      <p class="below100"><svg class="legend-color" width="10" height="10">
+        <rect width="10" height="10" style="fill:red;"/>
+      </svg>0 - 99 points</p>
+    </div>
+
+    <script src="../lib/d3.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
