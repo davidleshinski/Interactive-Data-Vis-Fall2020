@@ -47,6 +47,4 @@ const bars = g.selectAll("rect")
 // .attr("x", d => xScale(d.calories))
 .attr("width", d => xScale(d.population))
 .attr("height", d => yScale.bandwidth());
-
 })
-

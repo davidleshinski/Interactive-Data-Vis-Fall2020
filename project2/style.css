@@ -67,18 +67,15 @@ padding: 4% 20% 4% 20%;
     text-align: center;
 }
 
-#d3-container-2 {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
 #d3-container-2 p {
    width: 25%;
 }
 
 .system-stats {
     padding: 4% 5%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
 }
 

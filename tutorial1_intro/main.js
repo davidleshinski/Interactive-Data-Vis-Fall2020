@@ -43,6 +43,4 @@ const td = rows
 .style("border-top", "1px solid #c6c6c6")
 .style("background", "#CFEEFA")
 // .style("line-height", "1.5")
-.style("padding", "10px 0");
-
-})
+.style("padding", "10px 0");})
