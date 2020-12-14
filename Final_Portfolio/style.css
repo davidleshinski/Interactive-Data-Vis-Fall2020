@@ -35,6 +35,10 @@ h3 {
     text-decoration: none;
 }
 
+.project p {
+    padding: 0 5%;
+}
+
 .bonus-projects {
     display: flex;
     justify-content: center;
